@@ -24,6 +24,10 @@ pre {
 	border-radius: 3px;
 }
 
+.myFont {
+    font-family: arial, helvetica, sans-serif;
+}
+
 a:link {color: #B0D1F1; text-decoration: underline; }
 a:active {color: #ffffff; text-decoration: underline; }
 a:visited {color: #4575A5; text-decoration: underline; }
