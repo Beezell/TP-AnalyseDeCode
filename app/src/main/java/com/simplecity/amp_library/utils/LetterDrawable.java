@@ -22,9 +22,9 @@ public class LetterDrawable extends Drawable {
         mColors = colors;
         mPaint = paint;
         mKeyName = StringUtils.keyFor(displayName);
-        if (displayName != null && displayName.length() != 0) {
+        if (displayName.isEmpty()) {
             String key = StringUtils.keyFor(displayName);
-            if (key != null && key.length() != 0) {
+            if (!key.isEmpty()) {
                 mFirstChar = new char[] { Character.toUpperCase(key.charAt(0)) };
             }
         }
@@ -32,11 +32,11 @@ public class LetterDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        if (mFirstChar == null || mKeyName == null || mFirstChar.length == 0 || mKeyName.length() == 0) {
+        if (mFirstChar == null || mKeyName.isEmpty() || mFirstChar.length == 0) {
             return;
         }
         canvas.drawColor(pickColor(mDisplayName));
-        if (mKeyName.length() > 0) {
+        if (mKeyName.isEmpty()) {
             mPaint.setTextSize(canvas.getHeight() * 3 / 5);
             mPaint.getTextBounds(mFirstChar, 0, 1, getBounds());
             canvas.drawText(mFirstChar, 0, 1, canvas.getWidth() / 2, canvas.getHeight() / 2
