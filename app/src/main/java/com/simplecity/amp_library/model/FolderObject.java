@@ -18,4 +18,9 @@ public class FolderObject extends BaseFileObject {
                 ", folderCount=" + folderCount +
                 "} " + super.toString();
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
