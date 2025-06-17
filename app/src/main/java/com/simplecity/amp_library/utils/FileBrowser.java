@@ -52,13 +52,17 @@ public class FileBrowser {
         if (files != null) {
             for (File file : files) {
                 BaseFileObject baseFileObject;
+                boolean shouldContinue = false;
 
                 if (file.isDirectory()) {
                     baseFileObject = new FolderObject();
                     baseFileObject.path = FileHelper.getPath(file);
                     baseFileObject.name = file.getName();
                     File[] listOfFiles = file.listFiles(FileHelper.getAudioFilter());
-                    if (listOfFiles != null && listOfFiles.length > 0) {
+
+                    if (listOfFiles == null || listOfFiles.length == 0) {
+                        shouldContinue = true;
+                    } else {
                         for (File listOfFile : listOfFiles) {
                             if (listOfFile.isDirectory()) {
                                 ((FolderObject) baseFileObject).folderCount++;
@@ -66,28 +70,37 @@ public class FileBrowser {
                                 ((FolderObject) baseFileObject).fileCount++;
                             }
                         }
-                    } else {
-                        continue;
                     }
-                    if (!folderObjects.contains(baseFileObject)) {
+
+                    if (!shouldContinue && !folderObjects.contains(baseFileObject)) {
                         folderObjects.add(baseFileObject);
                     }
+
                 } else {
                     baseFileObject = new FileObject();
                     baseFileObject.path = FileHelper.getPath(file);
                     baseFileObject.name = FileHelper.getName(file.getName());
                     baseFileObject.size = file.length();
                     ((FileObject) baseFileObject).extension = FileHelper.getExtension(file.getName());
-                    if (TextUtils.isEmpty(((FileObject) baseFileObject).extension)) {
-                        continue;
-                    }
-                    ((FileObject) baseFileObject).tagInfo = new TagInfo(baseFileObject.path);
 
-                    if (!fileObjects.contains(baseFileObject)) {
-                        fileObjects.add(baseFileObject);
+                    if (TextUtils.isEmpty(((FileObject) baseFileObject).extension)) {
+                        shouldContinue = true;  // on skip cette itération aussi
+                    }
+
+                    if (!shouldContinue) {
+                        ((FileObject) baseFileObject).tagInfo = new TagInfo(baseFileObject.path);
+
+                        if (!fileObjects.contains(baseFileObject)) {
+                            fileObjects.add(baseFileObject);
+                        }
                     }
                 }
+
+                if (shouldContinue) {
+                    continue;
+                }
             }
+
         }
 
         sortFileObjects(fileObjects);

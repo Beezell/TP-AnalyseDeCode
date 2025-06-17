@@ -92,19 +92,19 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
 
         boolean requiresPermission = TaggerUtils.requiresPermission(applicationContext, paths);
 
-        for (int i = 0; i < paths.size(); i++) {
+        boolean shouldBreak = false;
+        for (int i = 0; i < paths.size() && !shouldBreak; i++) {
             final String path = paths.get(i);
             try {
-
                 File orig = new File(path);
                 AudioFile audioFile = AudioFileIO.read(orig);
                 Tag tag = audioFile.getTag();
                 if (tag == null) {
-                    break;
+                    shouldBreak = true;
+                    continue;  
                 }
 
                 TagUpdate tagUpdate = new TagUpdate(tag);
-
                 tagUpdate.softSetArtist(artistText);
                 tagUpdate.softSetAlbumArtist(albumArtistText);
                 tagUpdate.softSetGenre(genreText);
@@ -135,7 +135,8 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
                         audioFile = AudioFileIO.read(temp);
                         tag = audioFile.getTag();
                         if (tag == null) {
-                            break;
+                            shouldBreak = true;
+                            continue; 
                         }
                     }
 
