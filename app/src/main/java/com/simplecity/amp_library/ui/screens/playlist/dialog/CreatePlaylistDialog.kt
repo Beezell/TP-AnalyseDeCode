@@ -43,6 +43,8 @@ class CreatePlaylistDialog : DialogFragment() {
 
     private val disposable = CompositeDisposable()
 
+    private var playlistNames: List<String> = emptyList()
+
     @Inject lateinit var songsRepository: SongsRepository
 
     @Inject lateinit var settingsManager: SettingsManager
@@ -65,6 +67,8 @@ class CreatePlaylistDialog : DialogFragment() {
         @SuppressLint("InflateParams")
         val customView = LayoutInflater.from(context).inflate(R.layout.dialog_playlist, null)
         val editText = customView.findViewById<EditText>(R.id.editText)
+
+        loadAllPlaylistNames()
 
         disposable.add(Observable.fromCallable<String> { makePlaylistName() }
             .subscribeOn(Schedulers.io())
@@ -98,7 +102,7 @@ class CreatePlaylistDialog : DialogFragment() {
                                 val uri: Uri?
                                 if (id >= 0) {
                                     uri = ContentUris.withAppendedId(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, id!!.toLong())
-                                    val uri1 = MediaStore.Audio.Playlists.Members.getContentUri("external", id)
+                                    val uri1 = MediaStore.Audio.Playlists.Members.getContentUri("external", id as Long)
                                     context!!.contentResolver.delete(uri1, null, null)
                                 } else {
                                     val values = ContentValues(1)
@@ -155,33 +159,18 @@ class CreatePlaylistDialog : DialogFragment() {
                 // don't care about this one
             }
 
-            //Fixme: It's probably best to just query all playlist names first, and then check against hat list, rather than requerying for each char change.
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val newText = editText.text.toString()
-                if (newText.trim { it <= ' ' }.isEmpty()) {
+                val newText = editText.text.toString().trim()
+                if (newText.isEmpty()) {
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
                 } else {
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
-                    // check if playlist with current name exists already, and warn the user if so.
-                    disposable.add(idForPlaylistObservable(newText)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { id ->
-                                if (id >= 0) {
-                                    dialog.getActionButton(DialogAction.POSITIVE).setText(R.string.create_playlist_overwrite_text)
-                                } else {
-                                    dialog.getActionButton(DialogAction.POSITIVE).setText(R.string.create_playlist_create_text)
-                                }
-                            },
-                            { error ->
-                                LogUtils.logException(
-                                    TAG,
-                                    "PlaylistManager: Error handling text change",
-                                    error
-                                )
-                            }
-                        ))
+                    val exists = playlistNames.any { it.equals(newText, ignoreCase = true) }
+                    if (exists) {
+                        dialog.getActionButton(DialogAction.POSITIVE).setText(R.string.create_playlist_overwrite_text)
+                    } else {
+                        dialog.getActionButton(DialogAction.POSITIVE).setText(R.string.create_playlist_create_text)
+                    }
                 }
             }
 
@@ -193,6 +182,22 @@ class CreatePlaylistDialog : DialogFragment() {
         editText.addTextChangedListener(textWatcher)
 
         return dialog
+    }
+
+    private fun loadAllPlaylistNames() {
+        val query = Query.Builder()
+            .uri(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI)
+            .projection(arrayOf(MediaStore.Audio.Playlists.NAME))
+            .build()
+
+        disposable.add(SqlBriteUtils.createObservable(context!!, { cursor -> cursor.getString(0) }, query)
+            .toList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { names -> playlistNames = names },
+                { error -> LogUtils.logException(TAG, "Error loading playlist names", error) }
+            ))
     }
 
     fun idForPlaylistObservable(name: String): Single<Int> {
@@ -221,11 +226,6 @@ class CreatePlaylistDialog : DialogFragment() {
         SqlUtils.createQuery(context, query)?.use { cursor ->
             var suggestedName = String.format(template, num++)
 
-            // Need to loop until we've made 1 full pass through without finding a match.
-            // Looping more than once shouldn't happen very often, but will happen
-            // if you have playlists named "New Playlist 1"/10/2/3/4/5/6/7/8/9, where
-            // making only one pass would result in "New Playlist 10" being erroneously
-            // picked for the new name.
             var done = false
             while (!done) {
                 done = true
