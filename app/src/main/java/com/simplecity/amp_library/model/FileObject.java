@@ -36,4 +36,9 @@ public class FileObject extends BaseFileObject {
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fileCount, folderCount);
+    }
 }
