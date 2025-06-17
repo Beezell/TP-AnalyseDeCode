@@ -151,7 +151,7 @@ class MediaIdHelper(
         val mediaWrapper = parseMediaId(mediaId)
         when (mediaWrapper) {
             is MediaIdWrapper.Song -> {
-                getSongsForPredicate { if (mediaWrapper.albumId == null) true else it.albumId == mediaWrapper.albumId }
+                getSongsForPredicate { mediaWrapper.albumId == null || it.albumId == mediaWrapper.albumId }
                     .map { songs ->
                         songs
                             .sortedBy { song -> song.albumArtistName }
@@ -309,7 +309,7 @@ class MediaIdHelper(
 
     @SuppressLint("CheckResult")
     private fun listSongs(mediaId: String, albumId: Long?, completion: (MutableList<MediaItem>) -> Unit) {
-        getSongsForPredicate { if (albumId == null) true else it.albumId == albumId }
+        getSongsForPredicate { albumId == null || it.albumId == albumId }
             .map { songs ->
                 songs
                     .sortedBy { song -> song.albumArtistName }
