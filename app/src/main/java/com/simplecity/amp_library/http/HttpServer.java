@@ -126,9 +126,18 @@ public class HttpServer {
                         long contentLength = end - start + 1;
                         cleanupAudioStream();
                         audioInputStream = new FileInputStream(file);
-                        audioInputStream.skip(start);
+                        
+                        long skipped = 0;
+                        while (skipped < start) {
+                            long actuallySkipped = audioInputStream.skip(start - skipped);
+                            if (actuallySkipped <= 0) {
+                                throw new IOException("Failed to skip to the required position in audio stream");
+                            }
+                            skipped += actuallySkipped;
+                        }
+                        
                         Response response = newFixedLengthResponse(Response.Status.PARTIAL_CONTENT, getMimeType(audioFileToServe), audioInputStream, contentLength);
-                        response.addHeader("Content-Length", contentLength + "");
+                        response.addHeader("Content-Length", Long.toString(contentLength));
                         response.addHeader("Content-Range", "bytes " + start + "-" + end + "/" + fileLength);
                         response.addHeader("Content-Type", getMimeType(audioFileToServe));
                         return response;
@@ -171,34 +180,34 @@ public class HttpServer {
         }
     }
 
-    private final Map<String, String> MIME_TYPES = new HashMap<String, String>() {{
-        put("css", "text/css");
-        put("htm", "text/html");
-        put("html", "text/html");
-        put("xml", "text/xml");
-        put("java", "text/x-java-source, text/java");
-        put("md", "text/plain");
-        put("txt", "text/plain");
-        put("asc", "text/plain");
-        put("gif", "image/gif");
-        put("jpg", "image/jpeg");
-        put("jpeg", "image/jpeg");
-        put("png", "image/png");
-        put("mp3", "audio/mpeg");
-        put("m3u", "audio/mpeg-url");
-        put("mp4", "video/mp4");
-        put("ogv", "video/ogg");
-        put("flv", "video/x-flv");
-        put("mov", "video/quicktime");
-        put("swf", "application/x-shockwave-flash");
-        put("js", "application/javascript");
-        put("pdf", "application/pdf");
-        put("doc", "application/msword");
-        put("ogg", "application/x-ogg");
-        put("zip", "application/octet-stream");
-        put("exe", "application/octet-stream");
-        put("class", "application/octet-stream");
-    }};
+    private static final Map<String, String> MIME_TYPES = Map.of(
+       "css", "text/css",
+        "htm", "text/html",
+        "html", "text/html",
+        "xml", "text/xml",
+        "java", "text/x-java-source, text/java",
+        "md", "text/plain",
+        "txt", "text/plain",
+        "asc", "text/plain",
+        "gif", "image/gif",
+        "jpg", "image/jpeg",
+        "jpeg", "image/jpeg",
+        "png", "image/png",
+        "mp3", "audio/mpeg",
+        "m3u", "audio/mpeg-url",
+        "mp4", "video/mp4",
+        "ogv", "video/ogg",
+        "flv", "video/x-flv",
+        "mov", "video/quicktime",
+        "swf", "application/x-shockwave-flash",
+        "js", "application/javascript",
+        "pdf", "application/pdf",
+        "doc", "application/msword",
+        "ogg", "application/x-ogg",
+        "zip", "application/octet-stream",
+        "exe", "application/octet-stream",
+        "class", "application/octet-stream"
+    );
 
     String getMimeType(String filePath) {
         return MIME_TYPES.get(filePath.substring(filePath.lastIndexOf(".") + 1));
