@@ -239,10 +239,10 @@ public class EqualizerFragment extends BaseFragment implements
 
         for (int band = 0; band < numberEqualizerBands; band++) {
             //Unit conversion from mHz to Hz and use k prefix if necessary to display
-            float centerFreqHz = centerFreqs[band] / 1000;
+            float centerFreqHz = centerFreqs[band] / 1000f;
             String unitPrefix = "";
             if (centerFreqHz >= 1000) {
-                centerFreqHz = centerFreqHz / 1000;
+                centerFreqHz = centerFreqHz / 1000f;
                 unitPrefix = "k";
             }
             (eqContainer.findViewById(eqViewElementIds[band][0])).setVisibility(View.VISIBLE);
