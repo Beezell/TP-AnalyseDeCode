@@ -343,7 +343,7 @@ public class FolderFragment extends BaseFragment implements
                 break;
         }
 
-        if(settingsManager.getFolderBrowserFoldersSortOrder() == SortManager.SortFolders.COUNT){
+        if (SortManager.SortFolders.COUNT.equals(settingsManager.getFolderBrowserFoldersSortOrder()))
             menu.findItem(R.id.sort_folder_count).setChecked(true);
         }else{
             menu.findItem(R.id.sort_folder_default).setChecked(true);
