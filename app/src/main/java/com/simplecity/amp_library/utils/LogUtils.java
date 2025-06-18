@@ -22,4 +22,9 @@ public class LogUtils {
             Crashlytics.logException(throwable);
         }
     }
+
+    public static void logExceptionAutoTag(String tag, Throwable throwable) {
+    String message = "Unexpected " + throwable.getClass().getSimpleName();
+    logException(tag, message, throwable);
+}
 }
