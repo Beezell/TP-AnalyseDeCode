@@ -1,5 +1,6 @@
 package com.simplecity.amp_library.model;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class Suggestion {
@@ -7,11 +8,11 @@ public class Suggestion {
     public AlbumArtist mostPlayedArtist;
     public Album mostPlayedAlbum;
     public Song mostPlayedSong;
-    public ArrayList<Song> favouriteSongsOne = new ArrayList<>(3);
-    public ArrayList<Song> favouriteSongsTwo = new ArrayList<>(3);
-    public ArrayList<Album> recentlyPlayedAlbums = new ArrayList<>(4);
-    public ArrayList<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
-    public ArrayList<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
+    public List<Song> favouriteSongsOne = new ArrayList<>(3);
+    public List<Song> favouriteSongsTwo = new ArrayList<>(3);
+    public List<Album> recentlyPlayedAlbums = new ArrayList<>(4);
+    public List<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
+    public List<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
 
     private Suggestion(Builder builder) {
         this.mostPlayedArtist = builder.mostPlayedArtist;
@@ -28,11 +29,11 @@ public class Suggestion {
         private AlbumArtist mostPlayedArtist;
         private Album mostPlayedAlbum;
         private Song mostPlayedSong;
-        private ArrayList<Song> favouriteSongsOne = new ArrayList<>(3);
-        private ArrayList<Song> favouriteSongsTwo = new ArrayList<>(3);
-        private ArrayList<Album> recentlyPlayedAlbums = new ArrayList<>(4);
-        private ArrayList<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
-        private ArrayList<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
+        private List<Song> favouriteSongsOne = new ArrayList<>(3);
+        private List<Song> favouriteSongsTwo = new ArrayList<>(3);
+        private List<Album> recentlyPlayedAlbums = new ArrayList<>(4);
+        private List<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
+        private List<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
 
         public Builder mostPlayedArtist(AlbumArtist mostPlayedArtist) {
             this.mostPlayedArtist = mostPlayedArtist;
@@ -49,27 +50,27 @@ public class Suggestion {
             return this;
         }
 
-        public Builder favouriteSongsOne(ArrayList<Song> favouriteSongsOne) {
+        public Builder favouriteSongsOne(List<Song> favouriteSongsOne) {
             this.favouriteSongsOne = favouriteSongsOne;
             return this;
         }
 
-        public Builder favouriteSongsTwo(ArrayList<Song> favouriteSongsTwo) {
+        public Builder favouriteSongsTwo(List<Song> favouriteSongsTwo) {
             this.favouriteSongsTwo = favouriteSongsTwo;
             return this;
         }
 
-        public Builder recentlyPlayedAlbums(ArrayList<Album> recentlyPlayedAlbums) {
+        public Builder recentlyPlayedAlbums(List<Album> recentlyPlayedAlbums) {
             this.recentlyPlayedAlbums = recentlyPlayedAlbums;
             return this;
         }
 
-        public Builder recentlyAddedAlbumsOne(ArrayList<Album> recentlyAddedAlbumsOne) {
+        public Builder recentlyAddedAlbumsOne(List<Album> recentlyAddedAlbumsOne) {
             this.recentlyAddedAlbumsOne = recentlyAddedAlbumsOne;
             return this;
         }
 
-        public Builder recentlyAddedAlbumsTwo(ArrayList<Album> recentlyAddedAlbumsTwo) {
+        public Builder recentlyAddedAlbumsTwo(List<Album> recentlyAddedAlbumsTwo) {
             this.recentlyAddedAlbumsTwo = recentlyAddedAlbumsTwo;
             return this;
         }
