@@ -54,15 +54,12 @@ public class ShuffleButton extends android.support.v7.widget.AppCompatImageButto
 
             invalidateColors(normalColor, selectedColor);
 
-            switch (shuffleMode) {
-                case QueueManager.ShuffleMode.OFF:
-                    setContentDescription(getResources().getString(R.string.btn_shuffle_off));
-                    setImageDrawable(shuffleOff);
-                    break;
-                case QueueManager.ShuffleMode.ON:
-                    setContentDescription(getResources().getString(R.string.btn_shuffle_on));
-                    setImageDrawable(shuffleTracks);
-                    break;
+            if(shuffleMode == QueueManager.ShuffleMode.ON){
+                setContentDescription(getResources().getString(R.string.btn_shuffle_on));
+                setImageDrawable(shuffleTracks);
+            }else{
+                setContentDescription(getResources().getString(R.string.btn_shuffle_off));
+                setImageDrawable(shuffleOff);
             }
         }
     }

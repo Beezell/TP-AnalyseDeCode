@@ -78,29 +78,24 @@ public class RepeatingImageButton extends android.support.v7.widget.AppCompatIma
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
-                // need to call super to make long press work, but return
-                // true so that the application doesn't get the down event.
-                super.onKeyDown(keyCode, event);
-                return true;
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            // need to call super to make long press work, but return
+            // true so that the application doesn't get the down event.
+            super.onKeyDown(keyCode, event);
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
-                // remove the repeater, but call the hook one more time
-                removeCallbacks(mRepeater);
-                if (startTime != 0) {
-                    doRepeat(true);
-                    startTime = 0;
-                }
-        }
+        if(keyCode == KeyEvent.KEYCODE_ENTER)
+            // remove the repeater, but call the hook one more time
+            removeCallbacks(mRepeater);
+            if (startTime != 0) {
+                doRepeat(true);
+                startTime = 0;
+            }
         return super.onKeyUp(keyCode, event);
     }
 

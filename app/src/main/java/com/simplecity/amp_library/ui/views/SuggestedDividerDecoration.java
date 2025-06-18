@@ -23,18 +23,15 @@ public class SuggestedDividerDecoration extends RecyclerView.ItemDecoration {
                 parent.getChildAdapterPosition(view), ((GridLayoutManager) parent.getLayoutManager()).getSpanCount()
         );
 
-        switch (parent.getChildViewHolder(view).getItemViewType()) {
-            case ViewType.ALBUM_LIST_SMALL:
+        if(parent.getChildViewHolder(view).getItemViewType() == ViewType.ALBUM_CARD_LARGE){
+            if (spanIndex == 0) {
                 outRect.left = spacing;
+            } else if (spanIndex == 3) {
                 outRect.right = spacing;
-                break;
-            case ViewType.ALBUM_CARD_LARGE:
-                if (spanIndex == 0) {
-                    outRect.left = spacing;
-                } else if (spanIndex == 3) {
-                    outRect.right = spacing;
-                }
-                break;
+            }
+        }else{
+            outRect.left = spacing;
+            outRect.right = spacing;
         }
     }
 }
