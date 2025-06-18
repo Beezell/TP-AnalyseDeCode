@@ -141,7 +141,6 @@ class DrawerFragment : BaseFragment(), DrawerView, View.OnCreateContextMenuListe
     override fun onResume() {
         super.onResume()
 
-        // Todo: Move this crap to presenter
         disposables.add(Aesthetic.get(context)
             .colorPrimary()
             .compose(Rx.distinctToMainThread())
@@ -315,7 +314,6 @@ class DrawerFragment : BaseFragment(), DrawerView, View.OnCreateContextMenuListe
     // PlaylistMenuContract.View Implementation
 
     override fun onPlaybackFailed() {
-        // Todo: Improve error message
         Toast.makeText(context, R.string.empty_playlist, Toast.LENGTH_SHORT).show()
     }
 

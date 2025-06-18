@@ -112,7 +112,6 @@ public class CustomMediaScanner implements MediaScannerConnection.MediaScannerCo
         }
     }
 
-    // Todo: Remove context requirement
     public static Disposable scanFile(Context context, FolderObject folderObject) {
 
         @SuppressLint("InflateParams")

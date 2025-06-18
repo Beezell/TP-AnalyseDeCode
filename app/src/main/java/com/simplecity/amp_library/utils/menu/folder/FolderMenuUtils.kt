@@ -83,12 +83,10 @@ object FolderMenuUtils {
         CustomMediaScanner.scanFile(context, fileObject.path, { callbacks.showToast(it) })
     }
 
-    // Todo: Remove context requirement.
     private fun scanFolder(context: Context, folderObject: FolderObject) {
         CustomMediaScanner.scanFile(context, folderObject)
     }
 
-    // Todo: Remove context requirement.
     private fun renameFile(context: Context, folderView: FolderView, fileObject: BaseFileObject, callbacks: Callbacks) {
 
         @SuppressLint("InflateParams")
@@ -119,7 +117,6 @@ object FolderMenuUtils {
             .show()
     }
 
-    // Todo: Remove context requirement.
     private fun deleteFile(context: Context, folderView: FolderView, fileObject: BaseFileObject, callbacks: Callbacks) {
         val builder = MaterialDialog.Builder(context)
             .title(R.string.delete_item)

@@ -34,7 +34,6 @@ public class MenuUtils {
         //no instance
     }
 
-    // Todo: Remove context requirement
     public static void addToPlaylist(PlaylistManager playlistManager, Playlist playlist, List<Song> songs, Function1<Integer, Unit> insertCallback) {
         playlistManager.addToPlaylist(playlist, songs, insertCallback);
     }

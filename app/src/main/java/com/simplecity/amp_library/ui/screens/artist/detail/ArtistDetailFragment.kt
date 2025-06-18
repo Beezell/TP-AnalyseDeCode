@@ -616,7 +616,6 @@ class ArtistDetailFragment :
     }
 
     override fun onPlaybackFailed() {
-        // Todo: Improve error message
         Toast.makeText(context, R.string.empty_playlist, Toast.LENGTH_SHORT).show()
     }
 
