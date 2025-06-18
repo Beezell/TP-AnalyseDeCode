@@ -678,8 +678,8 @@ public class ColorHelper {
         if (!hasForegroundColor) {
             primaryTextColor = ColorHelper.resolvePrimaryColor(context, backgroundColor);
             secondaryTextColor = ColorHelper.resolveSecondaryColor(context, backgroundColor);
-            int COLOR_DEFAULT = 0;
-            if (backgroundColor != COLOR_DEFAULT) {
+            int colorDefault = 0;
+            if (backgroundColor != colorDefault) {
                 primaryTextColor = ColorHelper.findAlphaToMeetContrast(primaryTextColor, backgroundColor, 4.5);
                 secondaryTextColor = ColorHelper.findAlphaToMeetContrast(secondaryTextColor, backgroundColor, 4.5);
             }
