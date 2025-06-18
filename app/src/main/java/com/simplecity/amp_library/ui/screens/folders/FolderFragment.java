@@ -57,7 +57,7 @@ import com.simplecity.amp_library.utils.playlists.PlaylistMenuHelper;
 import com.simplecity.amp_library.utils.sorting.SortManager;
 import com.simplecityapps.recycler_adapter.adapter.ViewModelAdapter;
 import com.simplecityapps.recycler_adapter.model.ViewModel;
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener;
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -223,7 +223,7 @@ public class FolderFragment extends BaseFragment implements
             updateMenuItems(toolbar.getMenu());
         }
 
-        recyclerView.setRecyclerListener(new RecyclerListener());
+        recyclerView.setRecyclerListener(new AutoRecycleListener());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 

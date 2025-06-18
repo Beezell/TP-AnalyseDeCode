@@ -21,7 +21,7 @@ import com.simplecity.amp_library.ui.settings.SettingsParentFragment.ARG_TITLE
 import com.simplecity.amp_library.utils.menu.genre.GenreMenuUtils
 import com.simplecity.amp_library.utils.playlists.PlaylistMenuHelper
 import com.simplecity.amp_library.utils.withArgs
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
@@ -75,7 +75,7 @@ class GenreListFragment :
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setRecyclerListener(RecyclerListener())
+        recyclerView.setRecyclerListener(AutoRecycleListener())
         recyclerView.adapter = adapter
 
         presenter.bindView(this)

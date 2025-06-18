@@ -24,7 +24,7 @@ import com.simplecity.amp_library.ui.modelviews.ArtworkView;
 import com.simplecity.amp_library.ui.views.recyclerview.SpacesItemDecoration;
 import com.simplecityapps.recycler_adapter.adapter.ViewModelAdapter;
 import com.simplecityapps.recycler_adapter.model.ViewModel;
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener;
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -54,7 +54,7 @@ public class ArtworkDialog {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(0);
-        recyclerView.setRecyclerListener(new RecyclerListener());
+        recyclerView.setRecyclerListener(new AutoRecycleListener());
 
         adapter.items.add(0, new ArtworkLoadingView());
         adapter.notifyDataSetChanged();

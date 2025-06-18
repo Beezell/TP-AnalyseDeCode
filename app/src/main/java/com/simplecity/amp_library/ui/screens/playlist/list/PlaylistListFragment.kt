@@ -21,7 +21,7 @@ import com.simplecity.amp_library.ui.screens.playlist.dialog.RenamePlaylistDialo
 import com.simplecity.amp_library.utils.menu.playlist.PlaylistMenuUtils
 import com.simplecity.amp_library.utils.withArgs
 import com.simplecityapps.recycler_adapter.adapter.ViewModelAdapter
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -74,7 +74,7 @@ class PlaylistListFragment :
         super.onViewCreated(view, savedInstanceState)
 
         (view as RecyclerView).layoutManager = LinearLayoutManager(context)
-        view.setRecyclerListener(RecyclerListener())
+        view.setRecyclerListener(AutoRecycleListener())
         view.adapter = adapter
 
         presenter.bindView(this)

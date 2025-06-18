@@ -39,7 +39,7 @@ import com.simplecity.amp_library.utils.sorting.SortManager
 import com.simplecity.amp_library.utils.withArgs
 import com.simplecityapps.recycler_adapter.adapter.CompletionListUpdateCallbackAdapter
 import com.simplecityapps.recycler_adapter.model.ViewModel
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
 import com.simplecityapps.recycler_adapter.recyclerview.SpanSizeLookup
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import dagger.android.support.AndroidSupportInjection

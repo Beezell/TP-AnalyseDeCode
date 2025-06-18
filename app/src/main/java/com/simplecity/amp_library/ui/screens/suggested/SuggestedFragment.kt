@@ -46,7 +46,7 @@ import com.simplecity.amp_library.utils.sorting.SortManager
 import com.simplecity.amp_library.utils.withArgs
 import com.simplecityapps.recycler_adapter.adapter.ViewModelAdapter
 import com.simplecityapps.recycler_adapter.model.ViewModel
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import java.util.ArrayList
@@ -145,7 +145,7 @@ class SuggestedFragment :
         }
 
         view.addItemDecoration(SuggestedDividerDecoration(resources))
-        view.setRecyclerListener(RecyclerListener())
+        view.setRecyclerListener(AutoRecycleListener())
         view.layoutManager = gridLayoutManager
         view.adapter = adapter
 

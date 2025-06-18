@@ -46,7 +46,7 @@ import com.simplecity.multisheetview.ui.view.MultiSheetView.Sheet
 import com.simplecityapps.recycler_adapter.adapter.CompletionListUpdateCallbackAdapter
 import com.simplecityapps.recycler_adapter.adapter.ViewModelAdapter
 import com.simplecityapps.recycler_adapter.model.ViewModel
-import com.simplecityapps.recycler_adapter.recyclerview.RecyclerListener
+import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -134,7 +134,7 @@ class QueueFragment :
         cabToolbar = contextualToolbar as ContextualToolbar
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setRecyclerListener(RecyclerListener())
+        recyclerView.setRecyclerListener(AutoRecycleListener())
         recyclerView.adapter = adapter
 
         itemTouchHelperCallback = ItemTouchHelperCallback()
