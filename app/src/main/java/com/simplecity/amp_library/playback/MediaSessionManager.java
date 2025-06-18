@@ -57,7 +57,7 @@ class MediaSessionManager {
 
     private MediaIdHelper mediaIdHelper;
 
-    private static String SHUFFLE_ACTION = "ACTION_SHUFFLE";
+    private static final String SHUFFLE_ACTION = "ACTION_SHUFFLE";
 
     MediaSessionManager(
             Context context,

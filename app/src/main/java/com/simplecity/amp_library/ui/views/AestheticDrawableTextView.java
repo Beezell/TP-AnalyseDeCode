@@ -16,7 +16,7 @@ import static com.afollestad.aesthetic.Util.resolveResId;
 
 public class AestheticDrawableTextView extends AppCompatTextView {
 
-    private static String IGNORE_TAG = ":aesthetic_ignore";
+    private static final String IGNORE_TAG = ":aesthetic_ignore";
 
     private Disposable subscription;
 

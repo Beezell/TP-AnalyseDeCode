@@ -13,18 +13,18 @@ import java.util.concurrent.TimeUnit;
 
 class DummyNotificationHelper {
 
-    private static int NOTIFICATION_ID_DUMMY = 5;
+    private static final int NOTIFICATION_ID_DUMMY = 5;
 
     private boolean isShowingDummyNotification;
     private boolean isForegroundedByApp = false;
 
-    private static String CHANNEL_ID = "channel_dummy";
+    private static final String CHANNEL_ID = "channel_dummy";
 
     // Must be greater than 10000
     // See https://github.com/aosp-mirror/platform_frameworks_base/blob/e80b45506501815061b079dcb10bf87443bd385d/services/core/java/com/android/server/am/ActiveServices.java
     // (SERVICE_START_FOREGROUND_TIMEOUT = 10*1000)
     //
-    private static int NOTIFICATION_STOP_DELAY = 12500;
+    private static final int NOTIFICATION_STOP_DELAY = 12500;
 
     @Nullable
     private Disposable dummyNotificationDisposable = null;
