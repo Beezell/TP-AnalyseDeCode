@@ -247,8 +247,8 @@ public class QCircleActivity extends BaseActivity {
     }
 
     public void setPauseButtonImage() {
-
         if (pauseBtn == null) {
+            // Method intentionally left blank
             return;
         }
     }
