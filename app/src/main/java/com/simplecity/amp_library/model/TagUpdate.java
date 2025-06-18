@@ -34,51 +34,63 @@ public class TagUpdate {
     public TagUpdate(Tag tag) {
         try {
             this.title = tag.getFirst(FieldKey.TITLE);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.album = tag.getFirst(FieldKey.ALBUM);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.artist = tag.getFirst(FieldKey.ARTIST);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.genre = tag.getFirst(FieldKey.GENRE);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.year = tag.getFirst(FieldKey.YEAR);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.track = tag.getFirst(FieldKey.TRACK);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.trackTotal = tag.getFirst(FieldKey.TRACK_TOTAL);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.disc = tag.getFirst(FieldKey.DISC_NO);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.discTotal = tag.getFirst(FieldKey.DISC_TOTAL);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.lyrics = tag.getFirst(FieldKey.LYRICS);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
         try {
             this.comment = tag.getFirst(FieldKey.COMMENT);
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagUpdate", "Unexpected exception", e);
         }
     }
 
@@ -216,73 +228,85 @@ public class TagUpdate {
         if (titleHasChanged) {
             try {
                 tag.setField(FieldKey.TITLE, title);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (albumHasChanged) {
             try {
                 tag.setField(FieldKey.ALBUM, album);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (artistHasChanged) {
             try {
                 tag.setField(FieldKey.ARTIST, artist);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (albumArtistHasChanged) {
             try {
                 tag.setField(FieldKey.ALBUM_ARTIST, albumArtist);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (genreHasChanged) {
             try {
                 tag.setField(FieldKey.GENRE, genre);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (yearHasChanged) {
             try {
                 tag.setField(FieldKey.YEAR, year);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (trackHasChanged) {
             try {
                 tag.setField(FieldKey.TRACK, track);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (trackTotalHasChanged) {
             try {
                 tag.setField(FieldKey.TRACK_TOTAL, trackTotal);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (discHasChanged) {
             try {
                 tag.setField(FieldKey.DISC_NO, disc);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (discTotalHasChanged) {
             try {
                 tag.setField(FieldKey.DISC_TOTAL, discTotal);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (lyricsHasChanged) {
             try {
                 tag.setField(FieldKey.LYRICS, lyrics);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
         if (commentHasChanged) {
             try {
                 tag.setField(FieldKey.COMMENT, comment);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LogUtils.logException("TagUpdate", "Unexpected exception", e);
             }
         }
     }

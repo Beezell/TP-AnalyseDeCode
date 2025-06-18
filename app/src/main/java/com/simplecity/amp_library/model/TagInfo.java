@@ -69,7 +69,8 @@ public class TagInfo implements Serializable {
                     }
                 }
             }
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagInfo", "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -80,7 +81,8 @@ public class TagInfo implements Serializable {
                 AudioHeader audioHeader = audioFile.getAudioHeader();
                 return audioHeader.getBitRate();
             }
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagInfo", "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -91,7 +93,8 @@ public class TagInfo implements Serializable {
                 AudioHeader audioHeader = audioFile.getAudioHeader();
                 return audioHeader.getFormat();
             }
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagInfo", "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -102,7 +105,8 @@ public class TagInfo implements Serializable {
                 AudioHeader audioHeader = audioFile.getAudioHeader();
                 return audioHeader.getSampleRateAsNumber();
             }
-        } catch (UnsupportedOperationException ignored) {
+        } catch (UnsupportedOperationException e) {
+            LogUtils.logException("TagInfo", "Unexpected exception", e);
         }
         return -1;
     }
