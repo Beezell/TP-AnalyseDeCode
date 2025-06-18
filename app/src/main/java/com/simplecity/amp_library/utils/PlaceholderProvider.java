@@ -42,7 +42,7 @@ public class PlaceholderProvider {
 
         Aesthetic.get(applicationContext).isDark()
                 .compose(Rx.distinctToMainThread())
-                .subscribe(isDark -> this.isDark = isDark);
+                .subscribe(isDarkness -> this.isDark = isDarkness);
     }
 
     /**

@@ -214,8 +214,8 @@ public abstract class BitmapPalette {
     }
 
     protected void start(@NonNull final Bitmap bitmap) {
-        final boolean skipCache = this.skipCache;
-        if (!skipCache) {
+        final boolean ignoreCache = this.skipCache;
+        if (!ignoreCache) {
             Palette palette = CACHE.get(url);
             if (palette != null) {
                 apply(palette, true);
@@ -229,7 +229,7 @@ public abstract class BitmapPalette {
         builder.generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                if (!skipCache) {
+                if (!ignoreCache) {
                     CACHE.put(url, palette);
                 }
                 apply(palette, false);

@@ -45,10 +45,10 @@ public final class SleepTimer {
         timerActiveObservable = BehaviorSubject.create();
 
         currentTimeObservable = timerActiveObservable
-                .doOnNext(isActive -> this.isActive = isActive)
+                .doOnNext(isActived -> this.isActive = isActived)
                 .switchMap(ignored -> Observable
                         .interval(1, TimeUnit.SECONDS)
-                        .filter(aLong -> isActive)
+                        .filter(aLong -> isActived)
                         .map(time -> timeRemaining - time)
                         .distinctUntilChanged()
                         .skip(1)
