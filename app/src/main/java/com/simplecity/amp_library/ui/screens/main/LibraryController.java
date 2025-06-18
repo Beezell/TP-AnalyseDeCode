@@ -205,10 +205,9 @@ public class LibraryController extends BaseFragment implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                openSearch();
-                return true;
+        if(item.getItemId() == R.id.action_search){
+            openSearch();
+            return true;    
         }
         return false;
     }

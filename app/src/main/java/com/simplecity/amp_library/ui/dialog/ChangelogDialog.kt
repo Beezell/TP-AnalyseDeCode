@@ -64,7 +64,7 @@ class ChangelogDialog : DialogFragment() {
         Aesthetic.get(context)
             .isDark
             .take(1)
-            .subscribe { isDark -> webView.loadUrl(if (isDark) "file:///android_asset/web/info_dark.html" else "file:///android_asset/web/info.html") }
+            .subscribe { isDark -> webView.loadUrl(if (isDark) "file:///android_asset/web/info.html" else "file:///android_asset/web/info.html") }
 
         return MaterialDialog.Builder(context!!)
             .title(R.string.pref_title_changelog)

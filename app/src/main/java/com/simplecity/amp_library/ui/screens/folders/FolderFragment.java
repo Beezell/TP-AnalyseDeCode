@@ -343,13 +343,10 @@ public class FolderFragment extends BaseFragment implements
                 break;
         }
 
-        switch (settingsManager.getFolderBrowserFoldersSortOrder()) {
-            case SortManager.SortFolders.DEFAULT:
-                menu.findItem(R.id.sort_folder_default).setChecked(true);
-                break;
-            case SortManager.SortFolders.COUNT:
-                menu.findItem(R.id.sort_folder_count).setChecked(true);
-                break;
+        if(settingsManager.getFolderBrowserFoldersSortOrder() == SortManager.SortFolders.COUNT){
+            menu.findItem(R.id.sort_folder_count).setChecked(true);
+        }else{
+            menu.findItem(R.id.sort_folder_default).setChecked(true);
         }
 
         menu.findItem(R.id.folder_home_dir).setIcon(fileBrowser.getHomeDirIcon());
@@ -533,13 +530,12 @@ public class FolderFragment extends BaseFragment implements
             contextualToolbarHelper.setCanChangeTitle(false);
 
             contextualToolbar.setOnMenuItemClickListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.done:
-                        contextualToolbarHelper.finish();
-                        showWhitelist(false);
-                        showBlacklist(false);
-                        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
-                        return true;
+                if(menuItem.getItemId()){
+                    contextualToolbarHelper.finish();
+                    showWhitelist(false);
+                    showBlacklist(false);
+                    adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+                    return true;            
                 }
                 return false;
             });
