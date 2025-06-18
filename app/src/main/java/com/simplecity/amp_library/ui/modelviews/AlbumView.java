@@ -128,11 +128,12 @@ public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implem
         }
 
         requestManager.load(album)
-                .listener(getViewType() == ViewType.ALBUM_PALETTE ? GlidePalette.with(album.getArtworkKey())
-                        .use(GlidePalette.Profile.MUTED_DARK)
+                .listener(getViewType() == ViewType.ALBUM_PALETTE
+                    ? GlidePalette.with(album.getArtworkKey())
+                        .use(com.github.florent37.glidepalette.BitmapPalette.Profile.MUTED_DARK)
                         .intoBackground(holder.bottomContainer)
                         .crossfade(true)
-                        : null)
+                    : null)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(PlaceholderProvider.getInstance(holder.itemView.getContext()).getPlaceHolderDrawable(album.name, false, settingsManager))
                 .into(holder.imageOne);

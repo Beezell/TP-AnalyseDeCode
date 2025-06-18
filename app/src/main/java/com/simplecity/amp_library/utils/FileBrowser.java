@@ -156,11 +156,11 @@ public class FileBrowser {
         files = dir.list((dir1, filename) -> dir1.isDirectory() && filename.toLowerCase().contains("storage"));
 
         if (files != null && files.length > 0) {
-            dir = new File(dir + "/" + files[0]);
+            dir = new File(dir + File.separator + files[0]);
             //If there's an extsdcard path in our base dir, let's navigate to that. External SD cards are cool.
             files = dir.list((dir1, filename) -> dir1.isDirectory() && filename.toLowerCase().contains("extsdcard"));
             if (files != null && files.length > 0) {
-                dir = new File(dir + "/" + files[0]);
+                dir = new File(dir + File.separator + files[0]);
             } else {
                 //If we have external storage, use that as our initial dir
                 if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
@@ -179,7 +179,7 @@ public class FileBrowser {
             files = dir.list((dir1, filename) -> dir1.isDirectory() && filename.toLowerCase().contains("music"));
         }
         if (files != null && files.length > 0) {
-            dir = new File(dir + "/" + files[0]);
+            dir = new File(dir + File.separator + files[0]);
         }
 
         return dir;

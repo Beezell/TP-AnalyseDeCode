@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class PaletteTarget {
 
-    @BitmapPalette.Profile
-    protected int paletteProfile = GlidePalette.Profile.VIBRANT;
+    @com.github.florent37.glidepalette.BitmapPalette.Profile
+    protected int paletteProfile = com.github.florent37.glidepalette.BitmapPalette.Profile.VIBRANT;
 
     protected ArrayList<Pair<View, Integer>> targetsBackground = new ArrayList<>();
     protected ArrayList<Pair<TextView, Integer>> targetsText = new ArrayList<>();
