@@ -408,13 +408,15 @@ public class TaggerDialog extends DialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == DOCUMENT_TREE_REQUEST_CODE){
-            if (resultCode == Activity.RESULT_OK) {
-                Uri treeUri = data.getData();
-                getContext().getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                settingsManager.setDocumentTreeUri(data.getData().toString());
-                saveTags();
-            }
+
+        if (requestCode == DOCUMENT_TREE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri treeUri = data.getData();
+            getContext().getContentResolver().takePersistableUriPermission(
+                treeUri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            );
+            settingsManager.setDocumentTreeUri(treeUri.toString());
+            saveTags();
         }
     }
 

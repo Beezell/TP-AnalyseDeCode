@@ -39,8 +39,7 @@ import com.simplecity.amp_library.utils.sorting.SortManager
 import com.simplecity.amp_library.utils.withArgs
 import com.simplecityapps.recycler_adapter.adapter.CompletionListUpdateCallbackAdapter
 import com.simplecityapps.recycler_adapter.model.ViewModel
-import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
-import com.simplecityapps.recycler_adapter.recyclerview.SpanSizeLookup
+import com.simplecityapps.recycler_adapter.recyclerview.GridSpanResolver
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Single
@@ -60,7 +59,7 @@ class AlbumArtistListFragment :
 
     private lateinit var adapter: FastScrollSectionAdapter
 
-    private lateinit var spanSizeLookup: SpanSizeLookup
+    private lateinit var GridSpanResolver: GridSpanResolver
 
     private var contextualToolbarHelper: ContextualToolbarHelper<AlbumArtist>? = null
 
@@ -110,14 +109,14 @@ class AlbumArtistListFragment :
 
         val spanCount = settingsManager.getArtistColumnCount(context)
         layoutManager = GridLayoutManager(context, spanCount)
-        spanSizeLookup = SpanSizeLookup(adapter, spanCount)
-        spanSizeLookup.isSpanIndexCacheEnabled = true
-        layoutManager.spanSizeLookup = spanSizeLookup
+        GridSpanResolver = GridSpanResolver(adapter, spanCount)
+        GridSpanResolver.isSpanIndexCacheEnabled = true
+        layoutManager.GridSpanResolver = GridSpanResolver
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(GridDividerDecoration(resources, 4, true))
-        recyclerView.setRecyclerListener(RecyclerListener())
+        recyclerView.setRecyclerListener(AutoRecycleListener())
 
         presenter.bindView(this)
     }
@@ -224,7 +223,7 @@ class AlbumArtistListFragment :
 
         if (item.groupId == MENU_GROUP_GRID) {
             settingsManager.setArtistColumnCount(context, item.itemId)
-            spanSizeLookup.setSpanCount(item.itemId)
+            GridSpanResolver.setSpanCount(item.itemId)
             (recyclerView.layoutManager as GridLayoutManager).spanCount = settingsManager.getArtistColumnCount(context)
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
@@ -236,13 +235,13 @@ class AlbumArtistListFragment :
 
     private fun setupGridSpan() {
         val spanCount = settingsManager.getArtistColumnCount(context)
-        spanSizeLookup.setSpanCount(spanCount)
+        GridSpanResolver.setSpanCount(spanCount)
         layoutManager.spanCount = spanCount
     }
 
     private fun setupListSpan() {
         val spanCount = resources.getInteger(R.integer.list_num_columns)
-        spanSizeLookup.setSpanCount(spanCount)
+        GridSpanResolver.setSpanCount(spanCount)
         layoutManager.spanCount = spanCount
     }
 
