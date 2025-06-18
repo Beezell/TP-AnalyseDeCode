@@ -118,7 +118,6 @@ public class MenuUtils {
     }
 
     /**
-     * Todo: Remove context requirement
      * Add the passed in songs to a new playlist. The 'create playlist dialog' will be presented to the user.
      *
      * @param single the songs to be added to the playlist
