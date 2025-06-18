@@ -28,7 +28,6 @@ import com.simplecity.amp_library.utils.MusicServiceConnectionUtils;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
 
-//Todo: Reapply themes
 public class QCircleActivity extends BaseActivity {
 
     // [START]declared in LGIntent.java of LG Framework

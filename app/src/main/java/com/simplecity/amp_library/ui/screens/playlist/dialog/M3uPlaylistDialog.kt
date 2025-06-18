@@ -96,7 +96,6 @@ class M3uPlaylistDialog : DialogFragment() {
                                     .append(" - ")
                                     .append(song.artistName)
                                     .append("\n")
-                                    //Todo: Use relative paths instead of absolute
                                     .append(song.path)
                                     .append("\n")
                             }
