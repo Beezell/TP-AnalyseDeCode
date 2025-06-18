@@ -40,92 +40,97 @@ public class FileBrowser {
     public List<BaseFileObject> loadDir(File directory) {
 
         ThreadUtils.ensureNotOnMainThread();
-
         currentDir = directory;
 
         List<BaseFileObject> folderObjects = new ArrayList<>();
         List<BaseFileObject> fileObjects = new ArrayList<>();
 
-        //Grab a list of all files/subdirs within the specified directory.
         File[] files = directory.listFiles(FileHelper.getAudioFilter());
-
         if (files != null) {
             for (File file : files) {
-                BaseFileObject baseFileObject;
-                boolean shouldContinue = false;
-
                 if (file.isDirectory()) {
-                    baseFileObject = new FolderObject();
-                    baseFileObject.path = FileHelper.getPath(file);
-                    baseFileObject.name = file.getName();
-                    File[] listOfFiles = file.listFiles(FileHelper.getAudioFilter());
-
-                    if (listOfFiles == null || listOfFiles.length == 0) {
-                        shouldContinue = true;
-                    } else {
-                        for (File listOfFile : listOfFiles) {
-                            if (listOfFile.isDirectory()) {
-                                ((FolderObject) baseFileObject).folderCount++;
-                            } else {
-                                ((FolderObject) baseFileObject).fileCount++;
-                            }
-                        }
+                    FolderObject folderObject = processDirectory(file);
+                    if (folderObject != null && !folderObjects.contains(folderObject)) {
+                        folderObjects.add(folderObject);
                     }
-
-                    if (!shouldContinue && !folderObjects.contains(baseFileObject)) {
-                        folderObjects.add(baseFileObject);
-                    }
-
                 } else {
-                    baseFileObject = new FileObject();
-                    baseFileObject.path = FileHelper.getPath(file);
-                    baseFileObject.name = FileHelper.getName(file.getName());
-                    baseFileObject.size = file.length();
-                    ((FileObject) baseFileObject).extension = FileHelper.getExtension(file.getName());
-
-                    if (TextUtils.isEmpty(((FileObject) baseFileObject).extension)) {
-                        shouldContinue = true;  // on skip cette itération aussi
+                    FileObject fileObject = processFile(file);
+                    if (fileObject != null && !fileObjects.contains(fileObject)) {
+                        fileObjects.add(fileObject);
                     }
-
-                    if (!shouldContinue) {
-                        ((FileObject) baseFileObject).tagInfo = new TagInfo(baseFileObject.path);
-
-                        if (!fileObjects.contains(baseFileObject)) {
-                            fileObjects.add(baseFileObject);
-                        }
-                    }
-                }
-
-                if (shouldContinue) {
-                    continue;
                 }
             }
-
         }
 
-        sortFileObjects(fileObjects);
-        sortFolderObjects(folderObjects);
+        sortResults(folderObjects, fileObjects);
 
-        if (!settingsManager.getFolderBrowserFilesAscending()) {
-            Collections.reverse(fileObjects);
-        }
-
-        if (!settingsManager.getFolderBrowserFoldersAscending()) {
-            Collections.reverse(folderObjects);
+        if (!FileHelper.isRootDirectory(currentDir)) {
+            folderObjects.add(0, createParentFolder());
         }
 
         folderObjects.addAll(fileObjects);
-
-        if (!FileHelper.isRootDirectory(currentDir)) {
-            FolderObject parentObject = new FolderObject();
-            parentObject.fileType = FileType.PARENT;
-            parentObject.name = FileHelper.PARENT_DIRECTORY;
-            parentObject.path = FileHelper.getPath(currentDir) + "/" + FileHelper.PARENT_DIRECTORY;
-            folderObjects.add(0, parentObject);
-        }
-
         return folderObjects;
     }
+
+    private FolderObject processDirectory(File file) {
+        FolderObject folderObject = new FolderObject();
+        folderObject.path = FileHelper.getPath(file);
+        folderObject.name = file.getName();
+
+        File[] contents = file.listFiles(FileHelper.getAudioFilter());
+        if (contents == null || contents.length == 0) {
+            return null;
+        }
+
+        for (File subFile : contents) {
+            if (subFile.isDirectory()) {
+                folderObject.folderCount++;
+            } else {
+                folderObject.fileCount++;
+            }
+        }
+
+        return folderObject;
+    }
+
+    private FileObject processFile(File file) {
+        String extension = FileHelper.getExtension(file.getName());
+        if (TextUtils.isEmpty(extension)) {
+            return null;
+        }
+
+        FileObject fileObject = new FileObject();
+        fileObject.path = FileHelper.getPath(file);
+        fileObject.name = FileHelper.getName(file.getName());
+        fileObject.size = file.length();
+        fileObject.extension = extension;
+        fileObject.tagInfo = new TagInfo(fileObject.path);
+
+        return fileObject;
+    }
+
+    private void sortResults(List<BaseFileObject> folders, List<BaseFileObject> files) {
+        sortFileObjects(files);
+        sortFolderObjects(folders);
+
+        if (!settingsManager.getFolderBrowserFilesAscending()) {
+            Collections.reverse(files);
+        }
+
+        if (!settingsManager.getFolderBrowserFoldersAscending()) {
+            Collections.reverse(folders);
+        }
+    }
+
+    private FolderObject createParentFolder() {
+        FolderObject parent = new FolderObject();
+        parent.fileType = FileType.PARENT;
+        parent.name = FileHelper.PARENT_DIRECTORY;
+        parent.path = FileHelper.getPath(currentDir) + "/" + FileHelper.PARENT_DIRECTORY;
+        return parent;
+    }
+
+
 
     @Nullable
     public File getCurrentDir() {
