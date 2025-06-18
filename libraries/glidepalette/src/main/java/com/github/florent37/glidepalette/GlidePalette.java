@@ -9,9 +9,9 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-public class GlidePalette<ModelType, TranscodeType> extends BitmapPalette implements RequestListener<ModelType, TranscodeType> {
+public class GlidePalette<M, T> extends BitmapPalette implements RequestListener<M, T> {
 
-    protected RequestListener<ModelType, TranscodeType> callback;
+    protected RequestListener<M, T> callback;
 
     protected GlidePalette() {
     }

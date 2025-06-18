@@ -5,13 +5,13 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public interface ViewModel<VH extends RecyclerView.ViewHolder> extends ContentsComparator {
+public interface ViewModel<V extends RecyclerView.ViewHolder> extends ContentsComparator {
 
     int getViewType();
 
-    void bindView(VH holder);
+    void bindView(V holder);
 
-    void bindView(VH holder, int position, List payloads);
+    void bindView(V holder, int position, List payloads);
 
     VH createViewHolder(ViewGroup parent);
 

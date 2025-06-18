@@ -14,7 +14,7 @@ import com.simplecityapps.recycler_adapter.model.ViewModel;
 import com.simplecityapps.recycler_adapter.recyclerview.BaseViewHolder;
 import java.util.List;
 
-public abstract class MultiItemView<VH extends MultiItemView.ViewHolder> extends BaseSelectableViewModel<VH> {
+public abstract class MultiItemView<V extends MultiItemView.ViewHolder> extends BaseSelectableViewModel<V> {
 
     @Override
     public int getLayoutResId() {
