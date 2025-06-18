@@ -13,23 +13,70 @@ public class Suggestion {
     public ArrayList<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
     public ArrayList<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
 
-    public Suggestion(AlbumArtist mostPlayedAlbumArtist,
-            Album mostPlayedAlbum,
-            Song mostPlayedSong,
-            ArrayList<Song> favouriteSongsOne,
-            ArrayList<Song> favouriteSongsTwo,
-            ArrayList<Album> recentlyPlayedAlbums,
-            ArrayList<Album> recentlyAddedAlbumsOne,
-            ArrayList<Album> recentlyAddedAlbumsTwo) {
+    private Suggestion(Builder builder) {
+        this.mostPlayedArtist = builder.mostPlayedArtist;
+        this.mostPlayedAlbum = builder.mostPlayedAlbum;
+        this.mostPlayedSong = builder.mostPlayedSong;
+        this.favouriteSongsOne = builder.favouriteSongsOne;
+        this.favouriteSongsTwo = builder.favouriteSongsTwo;
+        this.recentlyPlayedAlbums = builder.recentlyPlayedAlbums;
+        this.recentlyAddedAlbumsOne = builder.recentlyAddedAlbumsOne;
+        this.recentlyAddedAlbumsTwo = builder.recentlyAddedAlbumsTwo;
+    }
 
-        this.mostPlayedArtist = mostPlayedAlbumArtist;
-        this.mostPlayedAlbum = mostPlayedAlbum;
-        this.mostPlayedSong = mostPlayedSong;
-        this.favouriteSongsOne = favouriteSongsOne;
-        this.favouriteSongsTwo = favouriteSongsTwo;
-        this.recentlyPlayedAlbums = recentlyPlayedAlbums;
-        this.recentlyAddedAlbumsOne = recentlyAddedAlbumsOne;
-        this.recentlyAddedAlbumsTwo = recentlyAddedAlbumsTwo;
+    public static class Builder {
+        private AlbumArtist mostPlayedArtist;
+        private Album mostPlayedAlbum;
+        private Song mostPlayedSong;
+        private ArrayList<Song> favouriteSongsOne = new ArrayList<>(3);
+        private ArrayList<Song> favouriteSongsTwo = new ArrayList<>(3);
+        private ArrayList<Album> recentlyPlayedAlbums = new ArrayList<>(4);
+        private ArrayList<Album> recentlyAddedAlbumsOne = new ArrayList<>(2);
+        private ArrayList<Album> recentlyAddedAlbumsTwo = new ArrayList<>(2);
+
+        public Builder mostPlayedArtist(AlbumArtist mostPlayedArtist) {
+            this.mostPlayedArtist = mostPlayedArtist;
+            return this;
+        }
+
+        public Builder mostPlayedAlbum(Album mostPlayedAlbum) {
+            this.mostPlayedAlbum = mostPlayedAlbum;
+            return this;
+        }
+
+        public Builder mostPlayedSong(Song mostPlayedSong) {
+            this.mostPlayedSong = mostPlayedSong;
+            return this;
+        }
+
+        public Builder favouriteSongsOne(ArrayList<Song> favouriteSongsOne) {
+            this.favouriteSongsOne = favouriteSongsOne;
+            return this;
+        }
+
+        public Builder favouriteSongsTwo(ArrayList<Song> favouriteSongsTwo) {
+            this.favouriteSongsTwo = favouriteSongsTwo;
+            return this;
+        }
+
+        public Builder recentlyPlayedAlbums(ArrayList<Album> recentlyPlayedAlbums) {
+            this.recentlyPlayedAlbums = recentlyPlayedAlbums;
+            return this;
+        }
+
+        public Builder recentlyAddedAlbumsOne(ArrayList<Album> recentlyAddedAlbumsOne) {
+            this.recentlyAddedAlbumsOne = recentlyAddedAlbumsOne;
+            return this;
+        }
+
+        public Builder recentlyAddedAlbumsTwo(ArrayList<Album> recentlyAddedAlbumsTwo) {
+            this.recentlyAddedAlbumsTwo = recentlyAddedAlbumsTwo;
+            return this;
+        }
+
+        public Suggestion build() {
+            return new Suggestion(this);
+        }
     }
 
     @Override
@@ -46,4 +93,3 @@ public class Suggestion {
                 '}';
     }
 }
-

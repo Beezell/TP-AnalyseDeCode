@@ -138,7 +138,7 @@ public class Album implements
         }
 
         public Album build() {
-            return new Album.Builder(id, name, artists, albumArtistName, numSongs, numDiscs, year, lastPlayed, dateAdded, paths, songPlayCount);
+            return new Album.(id, name, artists, albumArtistName, numSongs, numDiscs, year, lastPlayed, dateAdded, paths, songPlayCount);
         }
     }
 
