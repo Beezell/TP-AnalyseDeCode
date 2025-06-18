@@ -180,18 +180,23 @@ public class HttpServer {
         }
     }
 
+    private static final String TXT_HTML = "text/html";
+    private static final String TXT_PLAIN = "text/plain";
+    private static final String IMG_JPEG = "image/jpeg";
+    private static final String APP_OCTET_STREAM = "application/octet-stream/jpeg";
+
     private static final Map<String, String> MIME_TYPES = Map.of(
        "css", "text/css",
-        "htm", "text/html",
-        "html", "text/html",
+        "htm", TXT_HTML,
+        "html", TXT_HTML,
         "xml", "text/xml",
         "java", "text/x-java-source, text/java",
-        "md", "text/plain",
-        "txt", "text/plain",
-        "asc", "text/plain",
+        "md", TXT_PLAIN,
+        "txt", TXT_PLAIN,
+        "asc", TXT_PLAIN,
         "gif", "image/gif",
-        "jpg", "image/jpeg",
-        "jpeg", "image/jpeg",
+        "jpg", IMG_JPEG,
+        "jpeg", IMG_JPEG,
         "png", "image/png",
         "mp3", "audio/mpeg",
         "m3u", "audio/mpeg-url",
@@ -204,9 +209,9 @@ public class HttpServer {
         "pdf", "application/pdf",
         "doc", "application/msword",
         "ogg", "application/x-ogg",
-        "zip", "application/octet-stream",
-        "exe", "application/octet-stream",
-        "class", "application/octet-stream"
+        "zip", APP_OCTET_STREAM,
+        "exe", APP_OCTET_STREAM,
+        "class", APP_OCTET_STREAM
     );
 
     String getMimeType(String filePath) {
