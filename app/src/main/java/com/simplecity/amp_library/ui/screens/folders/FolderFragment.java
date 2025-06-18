@@ -487,7 +487,7 @@ public class FolderFragment extends BaseFragment implements
 
     @Override
     public void onFileObjectCheckboxClick(CheckBox checkBox, FolderView folderView) {
-
+        
     }
 
     public void changeBreadcrumbPath() {

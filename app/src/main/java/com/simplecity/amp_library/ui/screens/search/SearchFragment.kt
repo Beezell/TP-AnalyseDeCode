@@ -271,6 +271,7 @@ class SearchFragment :
     }
 
     override fun showPlaybackError() {
+        Toast.makeText(context, "Playback error", Toast.LENGTH_SHORT).show()
     }
 
 

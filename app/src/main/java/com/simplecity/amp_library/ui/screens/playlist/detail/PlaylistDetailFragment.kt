@@ -148,9 +148,6 @@ class PlaylistDetailFragment :
         isFirstLoad = true
 
         adapter = ViewModelAdapter()
-
-        //Toast.makeText(getContext(), R.string.playlist_deleted_message, Toast.LENGTH_SHORT).show();
-        //getNavigationController().popViewController();
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

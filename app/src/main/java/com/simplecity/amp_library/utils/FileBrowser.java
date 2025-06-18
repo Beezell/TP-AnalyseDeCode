@@ -126,11 +126,9 @@ public class FileBrowser {
         FolderObject parent = new FolderObject();
         parent.fileType = FileType.PARENT;
         parent.name = FileHelper.PARENT_DIRECTORY;
-        parent.path = FileHelper.getPath(currentDir) + "/" + FileHelper.PARENT_DIRECTORY;
+        parent.path = FileHelper.getPath(currentDir) + File.separator + FileHelper.PARENT_DIRECTORY;
         return parent;
     }
-
-
 
     @Nullable
     public File getCurrentDir() {
