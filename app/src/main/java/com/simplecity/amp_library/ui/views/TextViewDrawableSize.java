@@ -52,24 +52,24 @@ public class TextViewDrawableSize extends AestheticDrawableTextView {
             Rect realBounds = drawable.getBounds();
             float scaleFactor = realBounds.height() / (float) realBounds.width();
 
-            float drawableWidth = realBounds.width();
-            float drawableHeight = realBounds.height();
+            float drawWidth = realBounds.width();
+            float drawHeight = realBounds.height();
 
             if (this.drawableWidth > 0) {
-                if (drawableWidth > this.drawableWidth) {
-                    drawableWidth = this.drawableWidth;
-                    drawableHeight = drawableWidth * scaleFactor;
+                if (drawWidth > this.drawableWidth) {
+                    drawWidth = this.drawableWidth;
+                    drawHeight = drawWidth * scaleFactor;
                 }
             }
             if (this.drawableHeight > 0) {
-                if (drawableHeight > this.drawableHeight) {
-                    drawableHeight = this.drawableHeight;
-                    drawableWidth = drawableHeight / scaleFactor;
+                if (drawHeight > this.drawableHeight) {
+                    drawHeight = this.drawableHeight;
+                    drawWidth = drawHeight / scaleFactor;
                 }
             }
 
-            realBounds.right = realBounds.left + Math.round(drawableWidth);
-            realBounds.bottom = realBounds.top + Math.round(drawableHeight);
+            realBounds.right = realBounds.left + Math.round(drawWidth);
+            realBounds.bottom = realBounds.top + Math.round(drawHeight);
 
             drawable.setBounds(realBounds);
         }

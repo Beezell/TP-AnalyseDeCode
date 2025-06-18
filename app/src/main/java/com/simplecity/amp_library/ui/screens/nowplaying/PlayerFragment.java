@@ -298,7 +298,7 @@ public class PlayerFragment extends BaseFragment implements
 
         if (!settingsManager.getUsePalette() && !settingsManager.getUsePaletteNowPlayingOnly()) {
             disposables.add(getAestheticColorSetDisposable().subscribe(
-                    colorSet -> animateColors(PlayerFragment.this.colorSet, colorSet, 800, this::invalidateColors, null),
+                    colorgroup -> animateColors(PlayerFragment.this.colorSet, colorgroup, 800, this::invalidateColors, null),
                     error -> {
                         // Nothing to do
                     })
@@ -609,7 +609,7 @@ public class PlayerFragment extends BaseFragment implements
         colorAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         ArgbEvaluator argbEvaluator = ArgbEvaluator.getInstance();
         colorAnimator.addUpdateListener(animator -> {
-            ColorSet colorSet = new ColorSet(
+            ColorSet colorgroup = new ColorSet(
                     (int) argbEvaluator.evaluate(animator.getAnimatedFraction(), from.getPrimaryColor(), to.getPrimaryColor()),
                     (int) argbEvaluator.evaluate(animator.getAnimatedFraction(), from.getAccentColor(), to.getAccentColor()),
                     (int) argbEvaluator.evaluate(animator.getAnimatedFraction(), from.getPrimaryTextColorTinted(), to.getPrimaryTextColorTinted()),
@@ -617,7 +617,7 @@ public class PlayerFragment extends BaseFragment implements
                     (int) argbEvaluator.evaluate(animator.getAnimatedFraction(), from.getPrimaryTextColor(), to.getPrimaryTextColor()),
                     (int) argbEvaluator.evaluate(animator.getAnimatedFraction(), from.getSecondaryTextColor(), to.getSecondaryTextColor())
             );
-            consumer.accept(colorSet);
+            consumer.accept(colorgroup);
         });
         colorAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -691,7 +691,7 @@ public class PlayerFragment extends BaseFragment implements
             getAestheticColorSetDisposable()
                     .take(1)
                     .subscribe(
-                            colorSet -> animateColors(PlayerFragment.this.colorSet, colorSet, 800, intermediateColorSet -> invalidateColors(intermediateColorSet), null),
+                            colorgroup -> animateColors(PlayerFragment.this.colorSet, colorgroup, 800, intermediateColorSet -> invalidateColors(intermediateColorSet), null),
                             error -> {
                                 // Nothing ot do
                             }
