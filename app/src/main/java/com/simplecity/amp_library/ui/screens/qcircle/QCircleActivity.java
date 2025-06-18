@@ -51,8 +51,8 @@ public class QCircleActivity extends BaseActivity {
     // [END] QuickCircle info.
 
     // -------------------------------------------------------------------------------
-    private final boolean DEBUG = true;
-    private final String TAG = "QCircleActivity";
+    private final boolean debug = true;
+    private final String tag = "QCircleActivity";
     int mQuickCoverState = 0;
     Context mContext;
     private Window win = null;
@@ -173,53 +173,53 @@ public class QCircleActivity extends BaseActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     void initializeViewInformationFromDB() {
 
-        Log.d(TAG, "initializeViewInformationFromDB");
+        Log.d(tag, "initializeViewInformationFromDB");
         if (contentResolver == null) {
             return;
         }
 
-        Log.d(TAG, "initializeViewInformationFromDB");
+        Log.d(tag, "initializeViewInformationFromDB");
 
         //Check the availability of the case
         quickCircleEnabled = Settings.Global.getInt(contentResolver,
                 QUICKCOVERSETTINGS_QUICKCOVER_ENABLE, 0) == 0;
-        if (DEBUG) {
-            Log.d(TAG, "quickCircleEnabled:" + quickCircleEnabled);
+        if (debug) {
+            Log.d(tag, "quickCircleEnabled:" + quickCircleEnabled);
         }
 
         //[START] Get the QuickCircle window information
         int id = getResources().getIdentifier("config_circle_window_width", "dimen",
                 "com.lge.internal");
         circleWidth = getResources().getDimensionPixelSize(id);
-        if (DEBUG) {
-            Log.d(TAG, "circleWidth:" + circleWidth);
+        if (debug) {
+            Log.d(tag, "circleWidth:" + circleWidth);
         }
 
         id = getResources()
                 .getIdentifier("config_cover_window_height", "dimen", "com.lge.internal");
         circleHeight = getResources().getDimensionPixelSize(id);
-        if (DEBUG) {
-            Log.d(TAG, "circleHeight:" + circleHeight);
+        if (debug) {
+            Log.d(tag, "circleHeight:" + circleHeight);
         }
 
         id = getResources()
                 .getIdentifier("config_circle_window_x_pos", "dimen", "com.lge.internal");
         circleXpos = getResources().getDimensionPixelSize(id);
-        if (DEBUG) {
-            Log.d(TAG, "circleXpos:" + circleXpos);
+        if (debug) {
+            Log.d(tag, "circleXpos:" + circleXpos);
         }
 
         id = getResources()
                 .getIdentifier("config_circle_window_y_pos", "dimen", "com.lge.internal");
         circleYpos = getResources().getDimensionPixelSize(id);
-        if (DEBUG) {
-            Log.d(TAG, "circleYpos:" + circleYpos);
+        if (debug) {
+            Log.d(tag, "circleYpos:" + circleYpos);
         }
 
         id = getResources().getIdentifier("config_circle_diameter", "dimen", "com.lge.internal");
         circleDiameter = getResources().getDimensionPixelSize(id);
-        if (DEBUG) {
-            Log.d(TAG, "circleDiameter:" + circleDiameter);
+        if (debug) {
+            Log.d(tag, "circleDiameter:" + circleDiameter);
         }
         //[END]
     }
@@ -287,16 +287,16 @@ public class QCircleActivity extends BaseActivity {
             //Receives a LG QCirle intent for the cover event
             if (ACTION_ACCESSORY_COVER_EVENT.equals(action)) {
 
-                if (DEBUG) {
-                    Log.d(TAG, "ACTION_ACCESSORY_COVER_EVENT");
+                if (debug) {
+                    Log.d(tag, "ACTION_ACCESSORY_COVER_EVENT");
                 }
 
                 //Gets the current state of the cover
                 mQuickCoverState = intent.getIntExtra(EXTRA_ACCESSORY_COVER_STATE,
                         EXTRA_ACCESSORY_COVER_OPENED);
 
-                if (DEBUG) {
-                    Log.d(TAG, "mQuickCoverState:" + mQuickCoverState);
+                if (debug) {
+                    Log.d(tag, "mQuickCoverState:" + mQuickCoverState);
                 }
 
                 if (mQuickCoverState == EXTRA_ACCESSORY_COVER_CLOSED) { // closed
@@ -338,6 +338,6 @@ public class QCircleActivity extends BaseActivity {
 
     @Override
     protected String screenName() {
-        return TAG;
+        return tag;
     }
 }
