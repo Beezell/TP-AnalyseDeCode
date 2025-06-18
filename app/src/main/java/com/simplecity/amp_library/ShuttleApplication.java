@@ -221,7 +221,7 @@ public class ShuttleApplication extends DaggerApplication {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException | NullPointerException ignored) {
-
+            LogUtils.logException("ShuttleApp", "Unexpected exception", e);
         }
         return "unknown";
     }
@@ -299,6 +299,7 @@ public class ShuttleApplication extends DaggerApplication {
             try {
                 getContentResolver().delete(PlayCountTable.URI, selection.toString(), null);
             } catch (IllegalArgumentException ignored) {
+                LogUtils.logException("ShuutleApp", "Unexpected exception", e);
             }
         });
     }

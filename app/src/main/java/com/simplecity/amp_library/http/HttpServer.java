@@ -166,7 +166,8 @@ public class HttpServer {
         if (audioInputStream != null) {
             try {
                 audioInputStream.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                LogUtils.logException("HttpServer", "Unexpected exception", e);
             }
         }
     }
@@ -175,7 +176,8 @@ public class HttpServer {
         if (imageInputStream != null) {
             try {
                 imageInputStream.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                LogUtils.logException("HttpServer", "Unexpected exception", e);
             }
         }
     }
