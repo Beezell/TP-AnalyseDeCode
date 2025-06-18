@@ -90,8 +90,6 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
 
         boolean success = false;
 
-        boolean requiresPermission = TaggerUtils.requiresPermission(applicationContext, paths);
-
         boolean shouldBreak = false;
 
         for (int i = 0; i < paths.size() && !shouldBreak; i++) {
@@ -124,8 +122,7 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
                     }
 
                     File temp = null;
-                    if (tagUpdate.hasChanged()) {
-                        if (TaggerUtils.requiresPermission(applicationContext, paths)) {
+                    if (tagUpdate.hasChanged() && TaggerUtils.requiresPermission(applicationContext, paths)){
                             temp = new File(applicationContext.getFilesDir(), orig.getName());
                             tempFiles.add(temp);
                             TaggerUtils.copyFile(orig, temp);
@@ -154,7 +151,6 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
                                 }
                             }
                         }
-                    }
                 }
             } catch (Exception e) {
                 shouldBreak = true;
