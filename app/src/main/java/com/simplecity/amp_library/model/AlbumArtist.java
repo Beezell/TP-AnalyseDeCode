@@ -24,15 +24,17 @@ public class AlbumArtist implements
         ArtworkProvider,
         Sortable {
 
-    public String name;
+    private String name;
 
-    public List<Album> albums = new ArrayList<>();
+    private final List<Album> albums = new ArrayList<>();
 
     private String sortKey;
 
     public AlbumArtist(String name, List<Album> albums) {
         this.name = name;
-        this.albums = albums;
+        if (albums != null) {
+            this.albums.addAll(albums);
+        }
     }
 
     public Single<List<Song>> getSongsSingle(Repository.SongsRepository songsRepository) {
@@ -61,9 +63,21 @@ public class AlbumArtist implements
         return name;
     }
 
+    public List<Album> getAlbums() {
+        return Collections.unmodifiableList(albums);
+    }
+
+    public void addAlbum(Album album) {
+        albums.add(album);
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static class Builder {
         private String name;
-        private List<Album> albums = new ArrayList<>();
+        private final List<Album> albums = new ArrayList<>();
 
         public Builder name(String name) {
             this.name = name;
@@ -71,12 +85,16 @@ public class AlbumArtist implements
         }
 
         public Builder albums(List<Album> albums) {
-            this.albums = albums;
+            if (albums != null) {
+                this.albums.addAll(albums);
+            }
             return this;
         }
 
         public Builder album(Album album) {
-            this.albums.add(album);
+            if (album != null) {
+                this.albums.add(album);
+            }
             return this;
         }
 
@@ -113,13 +131,13 @@ public class AlbumArtist implements
         AlbumArtist that = (AlbumArtist) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return albums != null ? albums.equals(that.albums) : that.albums == null;
+        return albums.equals(that.albums);
     }
 
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (albums != null ? albums.hashCode() : 0);
+        result = 31 * result + albums.hashCode();
         return result;
     }
 
