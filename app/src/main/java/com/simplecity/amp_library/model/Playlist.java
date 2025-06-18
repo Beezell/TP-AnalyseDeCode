@@ -51,16 +51,39 @@ public class Playlist implements Serializable {
                 .build();
     }
 
-    public Playlist(@Type int type, long id, String name, boolean canEdit, boolean canClear, boolean canDelete, boolean canRename, boolean canSort) {
-        this.type = type;
-        this.id = id;
-        this.name = name;
-        this.canEdit = canEdit;
-        this.canClear = canClear;
-        this.canDelete = canDelete;
-        this.canRename = canRename;
-        this.canSort = canSort;
+     private Playlist(Builder builder) {
+        this.type = builder.type;
+        this.id = builder.id;
+        this.name = builder.name;
+        this.canEdit = builder.canEdit;
+        this.canClear = builder.canClear;
+        this.canDelete = builder.canDelete;
+        this.canRename = builder.canRename;
+        this.canSort = builder.canSort;
     }
+
+    public static class Builder {
+        private int type;
+        private long id;
+        private String name;
+        private boolean canEdit = true;
+        private boolean canClear = false;
+        private boolean canDelete = true;
+        private boolean canRename = true;
+        private boolean canSort = true;
+
+        public Builder type(int type) { this.type = type; return this; }
+        public Builder id(long id) { this.id = id; return this; }
+        public Builder name(String name) { this.name = name; return this; }
+        public Builder canEdit(boolean canEdit) { this.canEdit = canEdit; return this; }
+        public Builder canClear(boolean canClear) { this.canClear = canClear; return this; }
+        public Builder canDelete(boolean canDelete) { this.canDelete = canDelete; return this; }
+        public Builder canRename(boolean canRename) { this.canRename = canRename; return this; }
+        public Builder canSort(boolean canSort) { this.canSort = canSort; return this; }
+
+        public Playlist build() {
+            return new Playlist(this);
+        }
 
     public Playlist(Context context, Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
