@@ -44,7 +44,7 @@ import com.simplecity.amp_library.utils.withArgs
 import com.simplecityapps.recycler_adapter.adapter.CompletionListUpdateCallbackAdapter
 import com.simplecityapps.recycler_adapter.model.ViewModel
 import com.simplecityapps.recycler_adapter.recyclerview.AutoRecycleListener
-import com.simplecityapps.recycler_adapter.recyclerview.SpanSizeLookup
+import com.simplecityapps.recycler_adapter.recyclerview.GridSpanResolver
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Single
@@ -65,7 +65,7 @@ class AlbumListFragment :
 
     private lateinit var adapter: FastScrollSectionAdapter 
 
-    private lateinit var spanSizeLookup: SpanSizeLookup
+    private lateinit var GridSpanResolver: GridSpanResolver
 
     private lateinit var shuffleView: ShuffleView
 
