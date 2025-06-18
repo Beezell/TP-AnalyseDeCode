@@ -37,7 +37,7 @@ class PlaylistMenuPresenter @Inject constructor(
     }
 
     override fun delete(playlist: Playlist) {
-        getSongs(playlist) { songs ->
+        getSongs(playlist) { _ ->
             view?.presentDeletePlaylistDialog(playlist)
         }
     }
