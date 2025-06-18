@@ -217,13 +217,13 @@ public class DeleteDialog extends DialogFragment implements SafManager.SafDialog
             case Type.ARTISTS:
                 return Observable.fromIterable(artists)
                         .flatMapSingle(albumArtist -> albumArtist.getSongsSingle(songsRepository))
-                        .reduce(Collections.<Song>emptyList(), (songs, songs2) -> Stream.concat(Stream.of(songs), Stream.of(songs2)).toList())
+                        .reduce(Collections.<Song>emptyList(), (songs1, songs2) -> Stream.concat(Stream.of(songs1), Stream.of(songs2)).toList())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             case Type.ALBUMS:
                 return Observable.fromIterable(albums)
                         .flatMapSingle(album -> AlbumExtKt.getSongsSingle(album, songsRepository))
-                        .reduce(Collections.<Song>emptyList(), (songs, songs2) -> Stream.concat(Stream.of(songs), Stream.of(songs2)).toList())
+                        .reduce(Collections.<Song>emptyList(), (songs1, songs2) -> Stream.concat(Stream.of(songs1), Stream.of(songs2)).toList())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             case Type.SONGS:
@@ -238,9 +238,9 @@ public class DeleteDialog extends DialogFragment implements SafManager.SafDialog
 
     @SuppressLint("CheckResult")
     void deleteSongsOrShowSafDialog() {
-        disposables.add(getSongs().map(songs -> {
+        disposables.add(getSongs().map(songslist -> {
             // Keep track of the songs we want to delete, for later.
-            Stream.of(songs).forEach(song -> {
+            Stream.of(songslist).forEach(song -> {
                 if (SafManager.getInstance(getContext(), settingsManager).requiresPermission(new File(song.path))) {
                     songsForSafDeletion.add(song);
                 } else {

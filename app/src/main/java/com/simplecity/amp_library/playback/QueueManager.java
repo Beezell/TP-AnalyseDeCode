@@ -405,9 +405,9 @@ public class QueueManager {
                     if (queueList != null) {
                         playlist = deserializePlaylist(queueList, queueItems);
 
-                        final int queuePosition = playbackSettingsManager.getQueuePosition();
+                        final int positionQueue = playbackSettingsManager.getQueuePosition();
 
-                        if (queuePosition < 0 || queuePosition >= playlist.size()) {
+                        if (positionQueue < 0 || positionQueue >= playlist.size()) {
                             // The saved playlist is bogus, discard it
                             playlist.clear();
                             queueReloading = false;
@@ -415,7 +415,7 @@ public class QueueManager {
                             return;
                         }
 
-                        QueueManager.this.queuePosition = queuePosition;
+                        QueueManager.this.queuePosition = positionQueue;
 
                         if (repeatMode != RepeatMode.ALL && repeatMode != RepeatMode.ONE) {
                             repeatMode = RepeatMode.OFF;
@@ -428,7 +428,7 @@ public class QueueManager {
                             if (queueList != null) {
                                 shuffleList = deserializePlaylist(queueList, queueItems);
 
-                                if (queuePosition >= shuffleList.size()) {
+                                if (positionQueue >= shuffleList.size()) {
                                     // The saved playlist is bogus, discard it
                                     shuffleList.clear();
                                     queueReloading = false;
