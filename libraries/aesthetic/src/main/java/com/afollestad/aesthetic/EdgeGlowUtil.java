@@ -23,29 +23,29 @@ import java.lang.reflect.Field;
 @RestrictTo(LIBRARY_GROUP)
 final class EdgeGlowUtil {
 
-  private static Field EDGE_GLOW_FIELD_EDGE;
-  private static Field EDGE_GLOW_FIELD_GLOW;
-  private static Field EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT;
-  private static Field SCROLL_VIEW_FIELD_EDGE_GLOW_TOP;
-  private static Field SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM;
-  private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP;
-  private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM;
-  private static Field LIST_VIEW_FIELD_EDGE_GLOW_TOP;
-  private static Field LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM;
-  private static Field RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP;
-  private static Field RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT;
-  private static Field RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT;
-  private static Field RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM;
-  private static Field VIEW_PAGER_FIELD_EDGE_GLOW_LEFT;
-  private static Field VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT;
+  private static Field edgeGloxFieldEdge;
+  private static Field edgeGloxFieldGlow;
+  private static Field edgEffectCompatFieldEdgeEffect;
+  private static Field scrollViewFieldEdgeGlowTop;
+  private static Field scrollViewFieldEdgeGlowBottom;
+  private static Field nestedScrollViewFieldEdgeGlowTop;
+  private static Field nestedScrollViewFieldEdgeGlowBottom;
+  private static Field listViewFieldEdgeGlowTop;
+  private static Field listViewFieldEdgeGlowBottom;
+  private static Field recyclerViewFieldEdgeGlowTop;
+  private static Field recyclerViewFieldEdgeGlowLeft;
+  private static Field recyclerViewFieldEdgeGlowRight;
+  private static Field recyclerViewFieldEdgeGlowBottom;
+  private static Field viewPagerFieldEdgeGlowLeft;
+  private static Field viewPagerFieldEdgeGlowRight;
 
   private static void invalidateEdgeEffectFields() {
-    if (EDGE_GLOW_FIELD_EDGE != null
-        && EDGE_GLOW_FIELD_GLOW != null
-        && EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT != null) {
-      EDGE_GLOW_FIELD_EDGE.setAccessible(true);
-      EDGE_GLOW_FIELD_GLOW.setAccessible(true);
-      EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.setAccessible(true);
+    if (edgeGloxFieldEdge != null
+        && edgeGloxFieldGlow != null
+        && edgEffectCompatFieldEdgeEffect != null) {
+      edgeGloxFieldEdge.setAccessible(true);
+      edgeGloxFieldGlow.setAccessible(true);
+      edgEffectCompatFieldEdgeEffect.setAccessible(true);
       return;
     }
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -63,11 +63,11 @@ final class EdgeGlowUtil {
             break;
         }
       }
-      EDGE_GLOW_FIELD_EDGE = edge;
-      EDGE_GLOW_FIELD_GLOW = glow;
+      edgeGloxFieldEdge = edge;
+      edgeGloxFieldGlow = glow;
     } else {
-      EDGE_GLOW_FIELD_EDGE = null;
-      EDGE_GLOW_FIELD_GLOW = null;
+      edgeGloxFieldEdge = null;
+      edgeGloxFieldGlow = null;
     }
 
     Field efc = null;
@@ -76,13 +76,13 @@ final class EdgeGlowUtil {
     } catch (NoSuchFieldException e) {
       if (BuildConfig.DEBUG) e.printStackTrace();
     }
-    EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT = efc;
+    edgEffectCompatFieldEdgeEffect = efc;
   }
 
   private static void invalidateScrollViewFields() {
-    if (SCROLL_VIEW_FIELD_EDGE_GLOW_TOP != null && SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
-      SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
-      SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+    if (scrollViewFieldEdgeGlowTop != null && scrollViewFieldEdgeGlowBottom != null) {
+      scrollViewFieldEdgeGlowTop.setAccessible(true);
+      scrollViewFieldEdgeGlowBottom.setAccessible(true);
       return;
     }
     final Class<?> cls = ScrollView.class;
@@ -90,21 +90,21 @@ final class EdgeGlowUtil {
       switch (f.getName()) {
         case "mEdgeGlowTop":
           f.setAccessible(true);
-          SCROLL_VIEW_FIELD_EDGE_GLOW_TOP = f;
+          scrollViewFieldEdgeGlowTop = f;
           break;
         case "mEdgeGlowBottom":
           f.setAccessible(true);
-          SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM = f;
+          scrollViewFieldEdgeGlowBottom = f;
           break;
       }
     }
   }
 
   private static void invalidateNestedScrollViewFields() {
-    if (NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP != null
-        && NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
-      NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
-      NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+    if (NESTED_scrollViewFieldEdgeGlowTop != null
+        && nestedScrollViewFieldEdgeGlowBottom != null) {
+      NESTED_scrollViewFieldEdgeGlowTop.setAccessible(true);
+      nestedScrollViewFieldEdgeGlowBottom.setAccessible(true);
       return;
     }
     Class cls = NestedScrollView.class;
@@ -112,20 +112,20 @@ final class EdgeGlowUtil {
       switch (f.getName()) {
         case "mEdgeGlowTop":
           f.setAccessible(true);
-          NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP = f;
+          NESTED_scrollViewFieldEdgeGlowTop = f;
           break;
         case "mEdgeGlowBottom":
           f.setAccessible(true);
-          NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM = f;
+          nestedScrollViewFieldEdgeGlowBottom = f;
           break;
       }
     }
   }
 
   private static void invalidateListViewFields() {
-    if (LIST_VIEW_FIELD_EDGE_GLOW_TOP != null && LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
-      LIST_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
-      LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+    if (listViewFieldEdgeGlowTop != null && listViewFieldEdgeGlowBottom != null) {
+      listViewFieldEdgeGlowTop.setAccessible(true);
+      listViewFieldEdgeGlowBottom.setAccessible(true);
       return;
     }
     final Class<?> cls = AbsListView.class;
@@ -133,25 +133,25 @@ final class EdgeGlowUtil {
       switch (f.getName()) {
         case "mEdgeGlowTop":
           f.setAccessible(true);
-          LIST_VIEW_FIELD_EDGE_GLOW_TOP = f;
+          listViewFieldEdgeGlowTop = f;
           break;
         case "mEdgeGlowBottom":
           f.setAccessible(true);
-          LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM = f;
+          listViewFieldEdgeGlowBottom = f;
           break;
       }
     }
   }
 
   private static void invalidateRecyclerViewFields() {
-    if (RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP != null
-        && RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT != null
-        && RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT != null
-        && RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
-      RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
-      RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT.setAccessible(true);
-      RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
-      RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+    if (recyclerViewFieldEdgeGlowTop != null
+        && recyclerViewFieldEdgeGlowLeft != null
+        && recyclerViewFieldEdgeGlowRight != null
+        && recyclerViewFieldEdgeGlowBottom != null) {
+      recyclerViewFieldEdgeGlowTop.setAccessible(true);
+      recyclerViewFieldEdgeGlowLeft.setAccessible(true);
+      recyclerViewFieldEdgeGlowRight.setAccessible(true);
+      recyclerViewFieldEdgeGlowBottom.setAccessible(true);
       return;
     }
     Class cls = RecyclerView.class;
@@ -159,28 +159,28 @@ final class EdgeGlowUtil {
       switch (f.getName()) {
         case "mTopGlow":
           f.setAccessible(true);
-          RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP = f;
+          recyclerViewFieldEdgeGlowTop = f;
           break;
         case "mBottomGlow":
           f.setAccessible(true);
-          RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM = f;
+          recyclerViewFieldEdgeGlowBottom = f;
           break;
         case "mLeftGlow":
           f.setAccessible(true);
-          RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT = f;
+          recyclerViewFieldEdgeGlowLeft = f;
           break;
         case "mRightGlow":
           f.setAccessible(true);
-          RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT = f;
+          recyclerViewFieldEdgeGlowRight = f;
           break;
       }
     }
   }
 
   private static void invalidateViewPagerFields() {
-    if (VIEW_PAGER_FIELD_EDGE_GLOW_LEFT != null && VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT != null) {
-      VIEW_PAGER_FIELD_EDGE_GLOW_LEFT.setAccessible(true);
-      VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
+    if (viewPagerFieldEdgeGlowLeft != null && viewPagerFieldEdgeGlowRight != null) {
+      viewPagerFieldEdgeGlowLeft.setAccessible(true);
+      viewPagerFieldEdgeGlowRight.setAccessible(true);
       return;
     }
     Class cls = ViewPager.class;
@@ -188,11 +188,11 @@ final class EdgeGlowUtil {
       switch (f.getName()) {
         case "mLeftEdge":
           f.setAccessible(true);
-          VIEW_PAGER_FIELD_EDGE_GLOW_LEFT = f;
+          viewPagerFieldEdgeGlowLeft = f;
           break;
         case "mRightEdge":
           f.setAccessible(true);
-          VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT = f;
+          viewPagerFieldEdgeGlowRight = f;
           break;
       }
     }
@@ -204,9 +204,9 @@ final class EdgeGlowUtil {
     invalidateScrollViewFields();
     try {
       Object ee;
-      ee = SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.get(scrollView);
+      ee = scrollViewFieldEdgeGlowTop.get(scrollView);
       setEffectColor(ee, color);
-      ee = SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.get(scrollView);
+      ee = scrollViewFieldEdgeGlowBottom.get(scrollView);
       setEffectColor(ee, color);
     } catch (Exception ex) {
       if (BuildConfig.DEBUG) ex.printStackTrace();
@@ -216,9 +216,9 @@ final class EdgeGlowUtil {
   static void setEdgeGlowColor(@NonNull NestedScrollView scrollView, @ColorInt int color) {
     invalidateNestedScrollViewFields();
     try {
-      Object ee = NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.get(scrollView);
+      Object ee = NESTED_scrollViewFieldEdgeGlowTop.get(scrollView);
       setEffectColor(ee, color);
-      ee = NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.get(scrollView);
+      ee = nestedScrollViewFieldEdgeGlowBottom.get(scrollView);
       setEffectColor(ee, color);
     } catch (Exception ex) {
       if (BuildConfig.DEBUG) ex.printStackTrace();
@@ -228,9 +228,9 @@ final class EdgeGlowUtil {
   static void setEdgeGlowColor(@NonNull AbsListView listView, @ColorInt int color) {
     invalidateListViewFields();
     try {
-      Object ee = LIST_VIEW_FIELD_EDGE_GLOW_TOP.get(listView);
+      Object ee = listViewFieldEdgeGlowTop.get(listView);
       setEffectColor(ee, color);
-      ee = LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM.get(listView);
+      ee = listViewFieldEdgeGlowBottom.get(listView);
       setEffectColor(ee, color);
     } catch (Exception ex) {
       if (BuildConfig.DEBUG) ex.printStackTrace();
@@ -255,13 +255,13 @@ final class EdgeGlowUtil {
       scrollView.addOnScrollListener(scrollListener);
     }
     try {
-      Object ee = RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP.get(scrollView);
+      Object ee = recyclerViewFieldEdgeGlowTop.get(scrollView);
       setEffectColor(ee, color);
-      ee = RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM.get(scrollView);
+      ee = recyclerViewFieldEdgeGlowBottom.get(scrollView);
       setEffectColor(ee, color);
-      ee = RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT.get(scrollView);
+      ee = recyclerViewFieldEdgeGlowLeft.get(scrollView);
       setEffectColor(ee, color);
-      ee = RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT.get(scrollView);
+      ee = recyclerViewFieldEdgeGlowRight.get(scrollView);
       setEffectColor(ee, color);
     } catch (Exception ex) {
       if (BuildConfig.DEBUG) ex.printStackTrace();
@@ -271,9 +271,9 @@ final class EdgeGlowUtil {
   static void setEdgeGlowColor(@NonNull ViewPager pager, @ColorInt int color) {
     invalidateViewPagerFields();
     try {
-      Object ee = VIEW_PAGER_FIELD_EDGE_GLOW_LEFT.get(pager);
+      Object ee = viewPagerFieldEdgeGlowLeft.get(pager);
       setEffectColor(ee, color);
-      ee = VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT.get(pager);
+      ee = viewPagerFieldEdgeGlowRight.get(pager);
       setEffectColor(ee, color);
     } catch (Exception ex) {
       if (BuildConfig.DEBUG) ex.printStackTrace();
@@ -288,8 +288,8 @@ final class EdgeGlowUtil {
     if (edgeEffect instanceof EdgeEffectCompat) {
       // EdgeEffectCompat
       try {
-        EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.setAccessible(true);
-        edgeEffect = EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.get(edgeEffect);
+        edgEffectCompatFieldEdgeEffect.setAccessible(true);
+        edgeEffect = edgEffectCompatFieldEdgeEffect.get(edgeEffect);
       } catch (IllegalAccessException e) {
         e.printStackTrace();
         return;
@@ -301,10 +301,10 @@ final class EdgeGlowUtil {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       // EdgeGlow
       try {
-        EDGE_GLOW_FIELD_EDGE.setAccessible(true);
-        final Drawable mEdge = (Drawable) EDGE_GLOW_FIELD_EDGE.get(edgeEffect);
-        EDGE_GLOW_FIELD_GLOW.setAccessible(true);
-        final Drawable mGlow = (Drawable) EDGE_GLOW_FIELD_GLOW.get(edgeEffect);
+        edgeGloxFieldEdge.setAccessible(true);
+        final Drawable mEdge = (Drawable) edgeGloxFieldEdge.get(edgeEffect);
+        edgeGloxFieldGlow.setAccessible(true);
+        final Drawable mGlow = (Drawable) edgeGloxFieldGlow.get(edgeEffect);
         mEdge.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         mGlow.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         mEdge.setCallback(null); // free up any references
