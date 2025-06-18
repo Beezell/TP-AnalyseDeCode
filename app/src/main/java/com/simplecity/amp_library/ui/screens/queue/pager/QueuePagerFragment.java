@@ -41,7 +41,7 @@ public class QueuePagerFragment extends BaseFragment implements
         RequestManagerProvider,
         QueuePagerView {
 
-    private final String tag = "QueuePagerFragment";
+    private static final String TAG = "QueuePagerFragment";
 
     private Unbinder unbinder;
 
@@ -117,7 +117,7 @@ public class QueuePagerFragment extends BaseFragment implements
                                             mediaManager.setQueuePosition(snapPosition);
                                         }
                                     },
-                                    throwable -> LogUtils.logException(tag, "Error setting queue position", throwable)
+                                    throwable -> LogUtils.logException(TAG, "Error setting queue position", throwable)
                             );
                 }
 
@@ -197,6 +197,6 @@ public class QueuePagerFragment extends BaseFragment implements
 
     @Override
     protected String screenName() {
-        return tag;
+        return TAG;
     }
 }
