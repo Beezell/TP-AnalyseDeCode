@@ -193,11 +193,11 @@ public class MusicService extends MediaBrowserServiceCompat {
         registerReceiver(intentReceiver, intentFilter);
 
         // Initialize the delayed shutdown intent
-        Intent shutdownIntent = new Intent(this, MusicService.class);
-        shutdownIntent.setAction(ServiceCommand.SHUTDOWN);
+        Intent shutdown = new Intent(this, MusicService.class);
+        shutdown.setAction(ServiceCommand.SHUTDOWN);
 
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        this.shutdownIntent = PendingIntent.getService(this, 0, shutdownIntent, 0);
+        this.shutdownIntent = PendingIntent.getService(this, 0, shutdown, 0);
 
         analyticsManager.dropBreadcrumb(TAG, "onCreate(), scheduling delayed shutdown");
         scheduleDelayedShutdown();
