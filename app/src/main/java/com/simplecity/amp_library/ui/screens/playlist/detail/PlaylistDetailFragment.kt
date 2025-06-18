@@ -157,7 +157,7 @@ class PlaylistDetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar!!.setNavigationOnClickListener { v -> navigationController.popViewController() }
+        toolbar!!.setNavigationOnClickListener { _ -> navigationController.popViewController() }
 
         if (ShuttleUtils.canDrawBehindStatusBar()) {
             toolbar!!.layoutParams.height = (ActionBarUtils.getActionBarHeight(context!!) + ActionBarUtils.getStatusBarHeight(context!!)).toInt()
@@ -518,7 +518,7 @@ class PlaylistDetailFragment :
         }, {
             // Nothing to do
         },
-        { pos ->
+        { _ ->
 
         }) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {

@@ -98,7 +98,7 @@ class PlaylistManager @Inject constructor(
                                 .customView(customView, false)
                                 .positiveText(R.string.dialog_button_playlist_duplicate_add)
                                 .autoDismiss(false)
-                                .onPositive { dialog, which ->
+                                .onPositive { dialog, _ ->
                                     if (duplicates.size != 1 && !applyToAll.isChecked) {
                                         duplicates.removeAt(0)
                                         messageText.text = getPlaylistRemoveString(duplicates[0])
@@ -110,7 +110,7 @@ class PlaylistManager @Inject constructor(
                                     }
                                 }
                                 .negativeText(R.string.dialog_button_playlist_duplicate_skip)
-                                .onNegative { dialog, which ->
+                                .onNegative { dialog, _ ->
                                     if (duplicates.size != 1 && !applyToAll.isChecked) {
                                         mutableSongList.remove(duplicates.removeAt(0))
                                         messageText.text = getPlaylistRemoveString(duplicates[0])

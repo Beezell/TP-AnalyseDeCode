@@ -36,7 +36,7 @@ class DeletePlaylistConfirmationDialog : DialogFragment() {
             .title(R.string.dialog_title_playlist_delete)
             .content(R.string.dialog_message_playlist_delete, playlist.name)
             .positiveText(R.string.dialog_button_delete)
-            .onPositive { dialog, which -> playlistsRepository.deletePlaylist(playlist) }
+            .onPositive { _, _ -> playlistsRepository.deletePlaylist(playlist) }
             .negativeText(R.string.cancel)
             .build()
     }

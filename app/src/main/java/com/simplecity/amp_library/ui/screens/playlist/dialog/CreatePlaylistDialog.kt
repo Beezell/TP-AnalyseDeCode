@@ -91,7 +91,7 @@ class CreatePlaylistDialog : DialogFragment() {
             .customView(customView, false)
             .title(R.string.menu_playlist)
             .positiveText(R.string.create_playlist_create_text)
-            .onPositive { materialDialog, dialogAction ->
+            .onPositive { _, _ ->
                 val name = editText.text.toString()
                 if (!name.isEmpty()) {
                     idForPlaylistObservable(name)

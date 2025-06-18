@@ -86,7 +86,7 @@ class TabChooserDialog : DialogFragment() {
             .title(R.string.pref_title_choose_tabs)
             .customView(recyclerView, false)
             .positiveText(R.string.button_done)
-            .onPositive { dialog, which ->
+            .onPositive { _, _ ->
                 val editor = sharedPreferences.edit()
                 Stream.of<ViewModel<*>>(adapter.items)
                     .indexed()

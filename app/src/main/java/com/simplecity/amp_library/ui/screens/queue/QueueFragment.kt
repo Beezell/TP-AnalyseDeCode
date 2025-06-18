@@ -123,7 +123,7 @@ class QueueFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.setNavigationOnClickListener { v -> activity?.onBackPressed() }
+        toolbar.setNavigationOnClickListener { _ -> activity?.onBackPressed() }
         toolbar.inflateMenu(R.menu.menu_fragment_queue)
 
         val subMenu = toolbar.menu.addSubMenu(0, Defs.ADD_TO_PLAYLIST, 1, R.string.save_as_playlist)

@@ -104,7 +104,7 @@ object FolderMenuUtils {
 
         builder.customView(customView, false)
         builder.positiveText(R.string.save)
-            .onPositive { materialDialog, dialogAction ->
+            .onPositive { _, _ ->
                 if (editText.text != null) {
                     if (FileHelper.renameFile(context, fileObject, editText.text.toString())) {
                         callbacks.onFileNameChanged(folderView)
@@ -139,7 +139,7 @@ object FolderMenuUtils {
             )
         }
         builder.positiveText(R.string.button_ok)
-            .onPositive { materialDialog, dialogAction ->
+            .onPositive { _, _ ->
                 if (FileHelper.deleteFile(File(fileObject.path))) {
                     callbacks.onFileDeleted(folderView)
                     CustomMediaScanner.scanFiles(context, listOf(fileObject.path), null)

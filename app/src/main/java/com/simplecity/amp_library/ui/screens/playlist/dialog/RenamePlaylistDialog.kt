@@ -34,7 +34,7 @@ class RenamePlaylistDialog : DialogFragment() {
             .title(R.string.create_playlist_create_text_prompt)
             .customView(customView, false)
             .positiveText(R.string.save)
-            .onPositive { materialDialog, dialogAction ->
+            .onPositive { _, _ ->
                 val name = editText.text.toString()
                 if (name.isNotEmpty()) {
                     val resolver = context!!.contentResolver

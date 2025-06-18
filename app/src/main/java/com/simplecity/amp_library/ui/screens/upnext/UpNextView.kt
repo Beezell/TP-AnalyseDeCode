@@ -87,7 +87,7 @@ class UpNextView constructor(context: Context, attrs: AttributeSet? = null, defS
         arrowDrawable = DrawableCompat.wrap(arrowImageView.drawable)
         arrowImageView.setImageDrawable(arrowDrawable)
 
-        playPauseView?.setOnClickListener { v ->
+        playPauseView?.setOnClickListener { _ ->
             playPauseView?.toggle {
                 playerPresenter.togglePlayback()
             }

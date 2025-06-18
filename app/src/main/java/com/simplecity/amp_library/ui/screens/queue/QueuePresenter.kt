@@ -42,7 +42,7 @@ class QueuePresenter @Inject constructor(
             .toFlowable(BackpressureStrategy.LATEST)
             .debounce(150, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { intent ->
+            .subscribe { _ ->
                 val queueView = getView()
                 queueView?.updateQueuePosition(mediaManager.queuePosition)
             })
@@ -57,7 +57,7 @@ class QueuePresenter @Inject constructor(
             .toFlowable(BackpressureStrategy.LATEST)
             .debounce(150, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { intent ->
+            .subscribe { _ ->
                 loadData()
             })
     }

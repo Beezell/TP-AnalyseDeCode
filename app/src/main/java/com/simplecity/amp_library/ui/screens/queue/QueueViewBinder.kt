@@ -207,12 +207,12 @@ class QueueViewBinder(
         init {
             ButterKnife.bind(this, itemView)
 
-            itemView.setOnClickListener { v -> viewModel.onItemClick(adapterPosition) }
-            itemView.setOnLongClickListener { v -> viewModel.onItemLongClick(adapterPosition) }
+            itemView.setOnClickListener { _ -> viewModel.onItemClick(adapterPosition) }
+            itemView.setOnLongClickListener { _ -> viewModel.onItemLongClick(adapterPosition) }
 
             overflowButton.setOnClickListener { v -> viewModel.onOverflowClick(adapterPosition, v) }
 
-            dragHandle?.setOnTouchListener { v, event ->
+            dragHandle?.setOnTouchListener { _, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                     viewModel.onStartDrag(this)
                 }
