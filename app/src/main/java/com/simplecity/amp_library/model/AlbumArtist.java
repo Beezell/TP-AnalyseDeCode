@@ -60,7 +60,7 @@ public class AlbumArtist implements
     @Override
     @NonNull
     public String getArtworkKey() {
-        return name;
+        return getName();
     }
 
     public List<Album> getAlbums() {
