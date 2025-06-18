@@ -201,7 +201,7 @@ public class SortManager {
         return mPrefs.getBoolean(Key.GENRE_DETAIL_ALBUMS_ASC, true);
     }
 
-    static int PREF_VERSION = 0;
+    static final int PREF_VERSION = 0;
 
     public interface Key {
         String ARTISTS = "key_artists_sort_order_" + PREF_VERSION;
