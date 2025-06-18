@@ -89,13 +89,14 @@ public class RepeatingImageButton extends android.support.v7.widget.AppCompatIma
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_ENTER)
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
             // remove the repeater, but call the hook one more time
             removeCallbacks(mRepeater);
             if (startTime != 0) {
                 doRepeat(true);
                 startTime = 0;
             }
+        }
         return super.onKeyUp(keyCode, event);
     }
 
