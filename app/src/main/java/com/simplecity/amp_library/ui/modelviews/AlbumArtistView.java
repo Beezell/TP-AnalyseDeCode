@@ -162,23 +162,21 @@ public class AlbumArtistView extends MultiItemView<AlbumArtistView.ViewHolder, A
     public String getSectionName() {
         int sortOrder = sortManager.getArtistsSortOrder();
 
-        String string = null;
-        switch (sortOrder) {
-            case SortManager.ArtistSort.DEFAULT:
-                string = StringUtils.keyFor(albumArtist.name);
-                break;
-            case SortManager.ArtistSort.NAME:
-                string = albumArtist.name;
-                break;
+        String name = null;
+
+        if(sortOrder == SortManager.ArtistSort.NAME){
+            name = albumArtist.name;
+        }else{
+            name = StringUtils.keyFor(albumArtist.name);
         }
 
-        if (!TextUtils.isEmpty(string)) {
-            string = string.substring(0, 1).toUpperCase();
+        if (!TextUtils.isEmpty(name)) {
+            name = string.substring(0, 1).toUpperCase();
         } else {
-            string = " ";
+            name = " ";
         }
 
-        return string;
+        return name;
     }
 
     @Override

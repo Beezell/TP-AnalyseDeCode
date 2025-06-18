@@ -26,15 +26,12 @@ class NotificationStateHandler extends Handler {
             return;
         }
 
-        switch (msg.what) {
-            case START_FOREGROUND:
-                //The foreground notification has been started. Don't allow any previously delayed stop_foreground messages to be fired
-                removeMessages(NotificationStateHandler.STOP_FOREGROUND);
-                break;
-            case STOP_FOREGROUND:
-                //Stop the foreground notification.
-                service.stopForegroundImpl(false, false);
-                break;
+        if(msg.what == START_FOREGROUND){
+            //The foreground notification has been started. Don't allow any previously delayed stop_foreground messages to be fired
+            removeMessages(NotificationStateHandler.STOP_FOREGROUND);
+        }else{
+            //Stop the foreground notification.
+            service.stopForegroundImpl(false, false);
         }
     }
 }

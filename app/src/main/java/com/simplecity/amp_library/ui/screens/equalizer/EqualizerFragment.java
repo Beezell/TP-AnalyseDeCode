@@ -126,14 +126,14 @@ public class EqualizerFragment extends BaseFragment implements
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_dsp:
-                Intent openDSP = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
-                if (getActivity().getPackageManager().resolveActivity(openDSP, 0) != null) {
-                    startActivityForResult(openDSP, 1000);
-                }
-                break;
+
+        if(item.getItemId() == R.id.menu_dsp){
+            Intent openDSP = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+            if (getActivity().getPackageManager().resolveActivity(openDSP, 0) != null) {
+                startActivityForResult(openDSP, 1000);
+            }
         }
+        
         return true;
     }
 

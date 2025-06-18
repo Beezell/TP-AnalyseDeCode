@@ -35,11 +35,11 @@ public class DrawerAdapter extends ExpandableRecyclerAdapter<Parent<DrawerChild>
     @NonNull
     @Override
     public ParentViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
-        switch (viewType) {
-            case TYPE_DIVIDER:
-                return new DrawerDivider.DividerHolder(LayoutInflater.from(parentViewGroup.getContext()).inflate(R.layout.list_item_drawer_divider, parentViewGroup, false));
-            case TYPE_PARENT:
-                return new DrawerParent.ParentHolder(LayoutInflater.from(parentViewGroup.getContext()).inflate(R.layout.list_item_drawer, parentViewGroup, false));
+
+        if(viewType == TYPE_DIVIDER){
+            return new DrawerDivider.DividerHolder(LayoutInflater.from(parentViewGroup.getContext()).inflate(R.layout.list_item_drawer_divider, parentViewGroup, false));
+        }else{
+            return new DrawerParent.ParentHolder(LayoutInflater.from(parentViewGroup.getContext()).inflate(R.layout.list_item_drawer, parentViewGroup, false));
         }
         throw new IllegalStateException("onCreateParentViewHolder failed to return holder for type: " + viewType);
     }
@@ -52,13 +52,11 @@ public class DrawerAdapter extends ExpandableRecyclerAdapter<Parent<DrawerChild>
 
     @Override
     public void onBindParentViewHolder(@NonNull ParentViewHolder<Parent<DrawerChild>, DrawerChild> parentViewHolder, int parentPosition, @NonNull Parent<DrawerChild> parent) {
-        switch (getParentViewType(parentPosition)) {
-            case TYPE_DIVIDER:
-                ((DrawerDivider) getParentList().get(parentPosition)).bindView();
-                break;
-            case TYPE_PARENT:
-                ((DrawerParent) getParentList().get(parentPosition)).bindView((DrawerParent.ParentHolder) parentViewHolder);
-                break;
+        
+        if(getParentViewType(parentPosition) == TYPE_DIVIDER){
+            ((DrawerDivider) getParentList().get(parentPosition)).bindView();
+        }else{
+            ((DrawerParent) getParentList().get(parentPosition)).bindView((DrawerParent.ParentHolder) parentViewHolder);
         }
     }
 

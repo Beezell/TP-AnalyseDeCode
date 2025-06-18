@@ -336,26 +336,24 @@ public class QueueManager {
 
         List<QueueItem> queueItems = QueueItemKt.toQueueItems(songs);
 
-        switch (action) {
-            case EnqueueAction.NEXT:
-                List<QueueItem> otherList = getCurrentPlaylist() == playlist ? shuffleList : playlist;
-                getCurrentPlaylist().addAll(queuePosition + 1, queueItems);
-                otherList.addAll(queueItems);
+        if(action == EnqueueAction.NEXT){
+            List<QueueItem> otherList = getCurrentPlaylist() == playlist ? shuffleList : playlist;
+            getCurrentPlaylist().addAll(queuePosition + 1, queueItems);
+            otherList.addAll(queueItems);
 
-                QueueItemKt.updateOccurrence(getCurrentPlaylist());
+            QueueItemKt.updateOccurrence(getCurrentPlaylist());
 
-                setNextTrack.run();
-                notifyQueueChanged();
-                break;
-            case EnqueueAction.LAST:
-                playlist.addAll(queueItems);
-                shuffleList.addAll(queueItems);
+            setNextTrack.run();
+            notifyQueueChanged();
+        }else{
+            playlist.addAll(queueItems);
+            shuffleList.addAll(queueItems);
 
-                QueueItemKt.updateOccurrence(getCurrentPlaylist());
+            QueueItemKt.updateOccurrence(getCurrentPlaylist());
 
-                notifyQueueChanged();
-                break;
+            notifyQueueChanged();
         }
+
         if (queuePosition < 0) {
             queuePosition = 0;
             openCurrentAndNext.run();

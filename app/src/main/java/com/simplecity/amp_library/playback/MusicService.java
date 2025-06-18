@@ -811,9 +811,9 @@ public class MusicService extends MediaBrowserServiceCompat {
     }
 
     public void toggleShuffleMode() {
-        switch (getShuffleMode()) {
-            case QueueManager.ShuffleMode.OFF:
-                setShuffleMode(QueueManager.ShuffleMode.ON);
+
+        if(getShuffleMode() == QueueManager.ShuffleMode.OFF){
+            setShuffleMode(QueueManager.ShuffleMode.ON);
                 notifyChange(InternalIntents.SHUFFLE_CHANGED);
                 queueManager.makeShuffleList();
                 notifyChange(InternalIntents.QUEUE_CHANGED);
@@ -821,9 +821,8 @@ public class MusicService extends MediaBrowserServiceCompat {
                     setRepeatMode(QueueManager.RepeatMode.ALL);
                 }
                 showToast(R.string.shuffle_on_notif);
-                break;
-            case QueueManager.ShuffleMode.ON:
-                setShuffleMode(QueueManager.ShuffleMode.OFF);
+        }else{
+            setShuffleMode(QueueManager.ShuffleMode.OFF);
                 notifyChange(InternalIntents.SHUFFLE_CHANGED);
                 if (this.queueManager.queuePosition >= 0 && this.queueManager.queuePosition < queueManager.shuffleList.size()) {
                     int playPos = queueManager.playlist.indexOf(queueManager.shuffleList.get(this.queueManager.queuePosition));
@@ -833,7 +832,6 @@ public class MusicService extends MediaBrowserServiceCompat {
                 }
                 notifyChange(InternalIntents.QUEUE_CHANGED);
                 showToast(R.string.shuffle_off_notif);
-                break;
         }
     }
 
