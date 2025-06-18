@@ -167,7 +167,7 @@ public class HttpServer {
             try {
                 audioInputStream.close();
             } catch (IOException e) {
-                LogUtils.logException("HttpServer", "Unexpected exception", e);
+                LogUtils.logException(TAG, "Unexpected exception", e);
             }
         }
     }
@@ -177,7 +177,7 @@ public class HttpServer {
             try {
                 imageInputStream.close();
             } catch (IOException e) {
-                LogUtils.logException("HttpServer", "Unexpected exception", e);
+                LogUtils.logException(TAG, "Unexpected exception", e);
             }
         }
     }

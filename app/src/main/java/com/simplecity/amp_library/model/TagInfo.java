@@ -33,6 +33,8 @@ public class TagInfo implements Serializable {
     public int sampleRate;
     public String genre;
 
+    private final static String TAF_INFO =TAF_INFO;
+
     public TagInfo(String filePath) {
         if (filePath != null) {
             File file = new File(filePath);
@@ -70,7 +72,7 @@ public class TagInfo implements Serializable {
                 }
             }
         } catch (UnsupportedOperationException e) {
-            LogUtils.logException("TagInfo", "Unexpected exception", e);
+            LogUtils.logException(TAF_INFO, "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -82,7 +84,7 @@ public class TagInfo implements Serializable {
                 return audioHeader.getBitRate();
             }
         } catch (UnsupportedOperationException e) {
-            LogUtils.logException("TagInfo", "Unexpected exception", e);
+            LogUtils.logException(TAF_INFO, "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -94,7 +96,7 @@ public class TagInfo implements Serializable {
                 return audioHeader.getFormat();
             }
         } catch (UnsupportedOperationException e) {
-            LogUtils.logException("TagInfo", "Unexpected exception", e);
+            LogUtils.logException(TAF_INFO, "Unexpected exception", e);
         }
         return "Unknown";
     }
@@ -106,7 +108,7 @@ public class TagInfo implements Serializable {
                 return audioHeader.getSampleRateAsNumber();
             }
         } catch (UnsupportedOperationException e) {
-            LogUtils.logException("TagInfo", "Unexpected exception", e);
+            LogUtils.logException(TAF_INFO, "Unexpected exception", e);
         }
         return -1;
     }
