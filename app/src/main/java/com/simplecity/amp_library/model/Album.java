@@ -43,7 +43,7 @@ public class Album implements
 
     private String sortKey;
 
-    public Album(long id, String name, List<Artist> artists, String albumArtistName, int numSongs, int numDiscs, int year, long lastPlayed, long dateAdded, List<String> paths, int songPlayCount) {
+    private Album(long id, String name, List<Artist> artists, String albumArtistName, int numSongs, int numDiscs, int year, long lastPlayed, long dateAdded, List<String> paths, int songPlayCount) {
         this.id = id;
         this.name = name;
         this.artists = artists;
