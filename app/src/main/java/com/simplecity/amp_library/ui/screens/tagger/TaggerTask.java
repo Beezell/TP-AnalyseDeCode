@@ -93,87 +93,71 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
         boolean requiresPermission = TaggerUtils.requiresPermission(applicationContext, paths);
 
         boolean shouldBreak = false;
+
         for (int i = 0; i < paths.size() && !shouldBreak; i++) {
             final String path = paths.get(i);
             try {
                 File orig = new File(path);
                 AudioFile audioFile = AudioFileIO.read(orig);
                 Tag tag = audioFile.getTag();
+
                 if (tag == null) {
                     shouldBreak = true;
-                    continue;  
-                }
+                } else {
+                    TagUpdate tagUpdate = new TagUpdate(tag);
+                    tagUpdate.softSetArtist(artistText);
+                    tagUpdate.softSetAlbumArtist(albumArtistText);
+                    tagUpdate.softSetGenre(genreText);
+                    tagUpdate.softSetYear(yearText);
 
-                TagUpdate tagUpdate = new TagUpdate(tag);
-                tagUpdate.softSetArtist(artistText);
-                tagUpdate.softSetAlbumArtist(albumArtistText);
-                tagUpdate.softSetGenre(genreText);
-                tagUpdate.softSetYear(yearText);
-
-                if (showAlbum) {
-                    tagUpdate.softSetAlbum(albumText);
-                    tagUpdate.softSetDiscTotal(discTotalText);
-                }
-
-                if (showTrack) {
-                    tagUpdate.softSetTitle(titleText);
-                    tagUpdate.softSetTrack(trackText);
-                    tagUpdate.softSetTrackTotal(trackTotalText);
-                    tagUpdate.softSetDisc(discText);
-                    tagUpdate.softSetLyrics(lyricsText);
-                    tagUpdate.softSetComment(commentText);
-                }
-
-                File temp = null;
-                if (tagUpdate.hasChanged()) {
-
-                    if (TaggerUtils.requiresPermission(applicationContext, paths)) {
-                        temp = new File(applicationContext.getFilesDir(), orig.getName());
-                        tempFiles.add(temp);
-                        TaggerUtils.copyFile(orig, temp);
-
-                        audioFile = AudioFileIO.read(temp);
-                        tag = audioFile.getTag();
-                        if (tag == null) {
-                            shouldBreak = true;
-                            continue; 
-                        }
+                    if (showAlbum) {
+                        tagUpdate.softSetAlbum(albumText);
+                        tagUpdate.softSetDiscTotal(discTotalText);
+                    }
+                    if (showTrack) {
+                        tagUpdate.softSetTitle(titleText);
+                        tagUpdate.softSetTrack(trackText);
+                        tagUpdate.softSetTrackTotal(trackTotalText);
+                        tagUpdate.softSetDisc(discText);
+                        tagUpdate.softSetLyrics(lyricsText);
+                        tagUpdate.softSetComment(commentText);
                     }
 
-                    tagUpdate.updateTag(tag);
-                    AudioFileIO.write(audioFile);
-
-                    if (requiresPermission && temp != null) {
-                        DocumentFile documentFile = documentFiles.get(i);
-                        if (documentFile != null) {
-                            ParcelFileDescriptor pfd = applicationContext.getContentResolver().openFileDescriptor(documentFile.getUri(), "w");
-                            if (pfd != null) {
-                                FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
-                                TaggerUtils.copyFile(temp, fileOutputStream);
-                                pfd.close();
-                            }
-                            if (temp.delete()) {
-                                if (tempFiles.contains(temp)) {
-                                    tempFiles.remove(temp);
+                    File temp = null;
+                    if (tagUpdate.hasChanged()) {
+                        if (TaggerUtils.requiresPermission(applicationContext, paths)) {
+                            temp = new File(applicationContext.getFilesDir(), orig.getName());
+                            tempFiles.add(temp);
+                            TaggerUtils.copyFile(orig, temp);
+                            audioFile = AudioFileIO.read(temp);
+                            tag = audioFile.getTag();
+                            
+                            if (tag == null) {
+                                shouldBreak = true;
+                            } else {
+                                tagUpdate = new TagUpdate(tag);
+                                tagUpdate.softSetArtist(artistText);
+                                tagUpdate.softSetAlbumArtist(albumArtistText);
+                                tagUpdate.softSetGenre(genreText);
+                                tagUpdate.softSetYear(yearText);
+                                if (showAlbum) {
+                                    tagUpdate.softSetAlbum(albumText);
+                                    tagUpdate.softSetDiscTotal(discTotalText);
+                                }
+                                if (showTrack) {
+                                    tagUpdate.softSetTitle(titleText);
+                                    tagUpdate.softSetTrack(trackText);
+                                    tagUpdate.softSetTrackTotal(trackTotalText);
+                                    tagUpdate.softSetDisc(discText);
+                                    tagUpdate.softSetLyrics(lyricsText);
+                                    tagUpdate.softSetComment(commentText);
                                 }
                             }
                         }
                     }
                 }
-
-                publishProgress(i);
-                success = true;
-            } catch (CannotWriteException | IOException | CannotReadException | InvalidAudioFrameException | TagException | ReadOnlyFileException e) {
-                e.printStackTrace();
-            } finally {
-                //Try to clean up our temp files
-                if (tempFiles != null && tempFiles.isEmpty()) {
-                    for (int j = tempFiles.size() - 1; j >= 0; j--) {
-                        File file = tempFiles.get(j);
-                        file.delete();
-                        tempFiles.remove(j);
-                    }
-                }
+            } catch (Exception e) {
+                shouldBreak = true;
             }
         }
 
